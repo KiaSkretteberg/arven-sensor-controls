@@ -1,10 +1,8 @@
 # Arven Sensor Controls
 
-IDE: Microchip Studio
-
-Technology: C
-
-Hardware: Atmega328P 
+- IDE: Microchip Studio
+- Technology: C
+- Hardware: Atmega328P 
 
 This repo is for the code to run on the Arven robot and retrieve data from the following sensors:
 
