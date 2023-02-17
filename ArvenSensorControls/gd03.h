@@ -1,0 +1,1 @@
+void measure_gd03_voltage(void);
