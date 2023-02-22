@@ -33,7 +33,7 @@ int main(void)
 	SCI0_Init(F_CPU, 9600, 1); // 16Mhz clock, 9600 baud
 
 	// welcome message, so we know it booted OK
-	SCI0_TxString("\n328 Up! Characters will echo.\r");
+	SCI0_TxString("\n328 Up! Characters will echo.\n");
 	AtoD_Init(AtoD_Channel_0);
 
 	// set the global interrupt flag (enable interrupts)
