@@ -1,3 +1,15 @@
+/*
+ * gd03.c
+ *
+ * Created: 2023-02-21 5:12 PM
+ * Author : Kia Skretteberg
+ */
+#include <avr/io.h>
+#include <stdio.h>
+#include "atd.h"
+#include "sci.h"
+#include "gd03.h"
+
 void measure_gd03_voltage(void){
     unsigned char AD_low = ADCL; // must be read first
     unsigned char AD_high = ADCH;
