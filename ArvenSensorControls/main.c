@@ -14,6 +14,7 @@
 #include "atd.h"
 #include "sci.h"
 #include "gd03.h"
+#include "hc-sr04.h"
 #include <stdio.h>
 // global variables
 // constant for timer output compare offset, init and ISR rearm
