@@ -110,6 +110,33 @@ Discarded input sections
  .text          0x00000000        0x0 gd03.o
  .data          0x00000000        0x0 gd03.o
  .bss           0x00000000        0x0 gd03.o
+ .text          0x00000000        0x0 hc-sr04.o
+ .data          0x00000000        0x0 hc-sr04.o
+ .bss           0x00000000        0x0 hc-sr04.o
+ .text.initHCSR04Device
+                0x00000000       0x34 hc-sr04.o
+ .text.initHCSR04
+                0x00000000       0x14 hc-sr04.o
+ .text.triggerHCSR04
+                0x00000000        0xe hc-sr04.o
+ .text.waitForEcho
+                0x00000000       0x1c hc-sr04.o
+ .text.calculateDistance
+                0x00000000       0x1e hc-sr04.o
+ .text.getHCSR04Distance
+                0x00000000       0x56 hc-sr04.o
+ .text.checkForObstacle
+                0x00000000       0x32 hc-sr04.o
+ .debug_info    0x00000000      0x408 hc-sr04.o
+ .debug_abbrev  0x00000000      0x1ae hc-sr04.o
+ .debug_loc     0x00000000      0x402 hc-sr04.o
+ .debug_aranges
+                0x00000000       0x50 hc-sr04.o
+ .debug_ranges  0x00000000       0x40 hc-sr04.o
+ .debug_line    0x00000000      0x268 hc-sr04.o
+ .debug_str     0x00000000      0x281 hc-sr04.o
+ .comment       0x00000000       0x31 hc-sr04.o
+ .debug_frame   0x00000000       0xa0 hc-sr04.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
@@ -326,6 +353,7 @@ LOAD I2C328P.o
 LOAD sci328P.o
 LOAD timer328P.o
 LOAD gd03.o
+LOAD hc-sr04.o
 LOAD main.o
 START GROUP
 LOAD e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a
