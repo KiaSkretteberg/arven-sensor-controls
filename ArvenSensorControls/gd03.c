@@ -1,5 +1,7 @@
 /*
  * gd03.c
+ * GD03 Force Sensing Resistor (Weight Measurement)
+ * Utilizes AtoD
  *
  * Created: 2023-02-21 5:12 PM
  * Author : Kia Skretteberg

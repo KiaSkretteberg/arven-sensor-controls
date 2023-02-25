@@ -1,5 +1,7 @@
 /*
  * hc_sr04.c
+ * HC-SR04 Ultrasonic Sensor(s)
+ * Utilizes GPIO
  *
  * Created: 2023-02-24 1:36:28 PM
  *  Author: Kia Skretteberg
