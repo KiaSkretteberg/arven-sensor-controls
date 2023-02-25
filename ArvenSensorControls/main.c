@@ -35,12 +35,13 @@ int main(void)
 
 	// welcome message, so we know it booted OK
 	SCI0_TxString("\n328 Up! Characters will echo.\n");
-	AtoD_Init(AtoD_Channel_0);
+	GD03_Init();
 
 	// set the global interrupt flag (enable interrupts)
 	// this is backwards from the 9S12
 	sei();
 	// make portd pin 7 an output (PD7)
+	// CANNOT BE RUN WHEN HCSR04 SETUP
 	DDRD |= 0b10000000;
 
 
@@ -54,7 +55,16 @@ int main(void)
 		if (uiAtoDEventNext - _Ticks > cuiAtoDEventCount)
 		{
 			uiAtoDEventNext += cuiAtoDEventCount; // rearm
-			measure_gd03_voltage();
+			GD03_LoadState gd03Load = GD03_CheckForLoad();
+			
+			if(gd03Load == GD03_LoadPresent)
+			{
+				PORTD |= 0b10000000; // turn on LED
+			}
+			else
+			{
+				PORTD &= ~(0b10000000); // turn off LED
+			}
 		}
 
 	}
