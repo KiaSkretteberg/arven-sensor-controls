@@ -14,6 +14,7 @@
 /* Local Definitions (private functions)                                */
 /************************************************************************/
 
+// measure the current voltage coming in on AtoD channel 0
 float measureVoltage(void);
 
 /************************************************************************/
