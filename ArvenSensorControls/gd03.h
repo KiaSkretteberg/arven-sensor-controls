@@ -22,10 +22,15 @@ typedef enum
 	GD03_LoadNotPresent
 } GD03_LoadState;
 
+// Initialize AtoD channel 0 (pin 23)
 void GD03_Init(void);
 
+// Determine the weight (in grams) that is being measured by the GD03
 float GD03_DetermineWeight(void);
 
+// Check if a load is currently being measured by the GD03
 GD03_LoadState GD03_CheckForLoad(void);
 
+// Check if the weight being measured by the GD03 changed compared to previous weight
+// and how it changed in relation to the weight of a dose (was it roughly a dose [smallchange], or much more [largechange])
 GD03_WeightChange GD03_CheckForWeightChange(float newWeight, float oldWeight, float doseWeight);
