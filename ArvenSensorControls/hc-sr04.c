@@ -13,8 +13,9 @@
  /************************************************************************/
  /* Local Definitions (private functions)                                */
  /************************************************************************/
+ 
  // Toggle the specified pin low for 2us, then high for 10us, then back to low, in order to send out a pulse
- void triggerHCSR04(int pin);
+ void trigger(int pin);
  
  // Wait for the echo signal to go low from the specified pin
  long waitForEcho(int pin);
@@ -26,14 +27,15 @@
 /************************************************************************/
 /* Header Implementation                                                */
 /************************************************************************/
- void initHCSR04(void)
+
+ void HCSR04_InitAll(void)
  {
-	 initHCSR04Device(HCSR04_L);
-	 initHCSR04Device(HCSR04_C);
-	 initHCSR04Device(HCSR04_R);
+	 HCSR04_InitDevice(HCSR04_L);
+	 HCSR04_InitDevice(HCSR04_C);
+	 HCSR04_InitDevice(HCSR04_R);
  }
 
- void initHCSR04Device(HCSR04_Device device)
+ void HCSR04_InitDevice(HCSR04_Device device)
  {
 	 switch(device)
 	 {
@@ -58,15 +60,15 @@
 	 }
  }
  
-int checkForObstacle(HCSR04_Device device, float distance)
+int HCSR04_CheckForObstacle(HCSR04_Device device, float distance)
 {
-	float dDistance = getHCSR04Distance(device);
+	float dDistance = HCSR04_GetEchoDistance(device);
 	 
 	return dDistance < distance ? 1 : 0;
 }
 
 
- float getHCSR04Distance(HCSR04_Device device)
+ float HCSR04_GetEchoDistance(HCSR04_Device device)
  {
 	 long duration = 0;
 	 float distance = 0.0;
@@ -74,17 +76,17 @@ int checkForObstacle(HCSR04_Device device, float distance)
 	 switch(device)
 	 {
 		case HCSR04_L:
-			triggerHCSR04(HCSR04_L_Trig);
+			trigger(HCSR04_L_Trig);
 			duration = waitForEcho(HCSR04_L_Echo);
 			distance = calculateDistance(duration);
 			break;
 		case HCSR04_C:
-			triggerHCSR04(HCSR04_C_Trig);
+			trigger(HCSR04_C_Trig);
 			duration = waitForEcho(HCSR04_C_Echo);
 			distance = calculateDistance(duration);
 			break;
 		case HCSR04_R:
-			triggerHCSR04(HCSR04_R_Trig);
+			trigger(HCSR04_R_Trig);
 			duration = waitForEcho(HCSR04_R_Echo);
 			distance = calculateDistance(duration);
 			break;
@@ -96,7 +98,8 @@ int checkForObstacle(HCSR04_Device device, float distance)
 /************************************************************************/
 /* Local  Implementation                                                */
 /************************************************************************/
-void triggerHCSR04(int pin)
+
+void trigger(int pin)
 {
 	pin = 0;
 	_delay_us(2); //just to ensure we're starting a fresh pulse

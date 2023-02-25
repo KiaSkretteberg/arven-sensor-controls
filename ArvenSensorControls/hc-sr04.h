@@ -22,15 +22,15 @@ typedef enum
 } HCSR04_Device;
 
 // Initialize all HCSR04 devices
-void initHCSR04(void);
+void HCSR04_InitAll(void);
 
 // Initialize the specified device with appropriate Trig as output and appropriate Echo as input
-void initHCSR04Device(HCSR04_Device device);
+void HCSR04_InitDevice(HCSR04_Device device);
 
 // Determine if there's an obstacle within a specified distance, of the specified device, 
 // 0 = no obstacle, 1 = obstacle
-int checkForObstacle(HCSR04_Device device, float distance);
+int HCSR04_CheckForObstacle(HCSR04_Device device, float distance);
 
 // Get the current distance from the specified device, in cm, for a potential obstacle
 // if distance is greater than 400 (4m), no obstacle could be detected
-float getHCSR04Distance(HCSR04_Device device);
+float HCSR04_GetEchoDistance(HCSR04_Device device);
