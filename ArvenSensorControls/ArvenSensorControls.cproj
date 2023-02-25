@@ -163,6 +163,18 @@
       <SubType>compile</SubType>
       <Link>timer328P.c</Link>
     </Compile>
+    <Compile Include="encoder-36gp.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="encoder-36gp.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="backup-sens.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="backup-sens.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="gd03.c">
       <SubType>compile</SubType>
     </Compile>
@@ -176,6 +188,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="sen0427.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="sen0427.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
