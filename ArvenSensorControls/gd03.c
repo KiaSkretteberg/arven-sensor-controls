@@ -43,15 +43,16 @@ float GD03_DetermineWeight(void)
 
 GD03_LoadState GD03_CheckForLoad(void)
 {
-	float weight = GD03_DetermineWeight();
+	float volt = measureVoltage();
 	
-	return weight > GD03_MINV ? GD03_LoadPresent : GD03_LoadNotPresent;
+	return volt > GD03_MINV ? GD03_LoadPresent : GD03_LoadNotPresent;
 }
 
-GD03_WeightChange GD03_CheckForWeightChange(float newWeight, float oldWeight, float doseWeight)
+GD03_WeightChange GD03_CheckForWeightChange(float oldWeight, float doseWeight)
 {
-	float weightDifference = oldWeight - newWeight;
 	GD03_WeightChange change;
+	float newWeight = GD03_DetermineWeight();
+	float weightDifference = oldWeight - newWeight;
 	
 	// The weight went up?? Track as no change because it's confusing
 	if(weightDifference < 0)
@@ -75,7 +76,7 @@ float measureVoltage(void)
     unsigned char AD_low = ADCL; // must be read first
     unsigned char AD_high = ADCH;
     unsigned int atodval = (AD_low + AD_high * 256);
-    char buff[20];
+    //char buff[20];
     //sprintf(buff,"\nATOD: %i", atodval);
     //SCI0_TxString(buff);
     float q = AREF / 1024.0; // 10 bit atod [1024]

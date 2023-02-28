@@ -9,7 +9,7 @@
 
 #define AREF 5.0
 #define GD03_MAXN 10 // retrieved from https://www.uneotech.com/uploads/product_download/tw/GD03-10N%20ENG.pdf
-#define GD03_MINV 0.73 // Experimentally determined (voltage measured when no load) TODO: determine this value for real
+#define GD03_MINV 0.01 // Experimentally determined (voltage measured when no load) TODO: determine this value for real
 
 typedef enum
 {
@@ -35,4 +35,4 @@ GD03_LoadState GD03_CheckForLoad(void);
 
 // Check if the weight being measured by the GD03 changed compared to previous weight
 // and how it changed in relation to the weight of a dose (was it roughly a dose [smallchange], or much more [largechange])
-GD03_WeightChange GD03_CheckForWeightChange(float newWeight, float oldWeight, float doseWeight);
+GD03_WeightChange GD03_CheckForWeightChange(float oldWeight, float doseWeight);

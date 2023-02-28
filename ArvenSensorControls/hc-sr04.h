@@ -36,3 +36,5 @@ int HCSR04_CheckForObstacle(HCSR04_Device device, float distance);
 // Get the current distance from the specified device, in cm, for a potential obstacle
 // if distance is greater than 400 (4m), no obstacle could be detected
 float HCSR04_GetEchoDistance(HCSR04_Device device);
+
+void HCSR04_ISR(int pin);
