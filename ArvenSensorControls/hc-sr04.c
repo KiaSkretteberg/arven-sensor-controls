@@ -11,20 +11,24 @@
  #include <stdio.h>
  #include <util/delay.h> // have to add, has delay implementation (requires F_CPU to be defined)
  #include "hc-sr04.h"
+ #include "sci.h"
  
  /************************************************************************/
  /* Local Definitions (private functions)                                */
  /************************************************************************/
  
- // Toggle the specified pin low for 2us, then high for 10us, then back to low, in order to send out a pulse
- void trigger(int pin);
+// Toggle the specified pin low for 2us, then high for 10us, then back to low, in order to send out a pulse
+void trigger(int pin);
  
- // Wait for the echo signal to go low from the specified pin
- long waitForEcho(int pin);
+// Wait for the echo signal to go low from the specified pin
+long waitForEcho(int pin);
  
- // Calculate the distance (in cm) of the sound pulse from the duration (in us)
- float calculateDistance(long duration);
+// Calculate the distance (in cm) of the sound pulse from the duration (in us)
+float calculateDistance(long duration);
  
+ 
+long echoTimeStart;
+long echoTimeEnd;
  
 /************************************************************************/
 /* Header Implementation                                                */
@@ -42,16 +46,23 @@
 	 switch(device)
 	 {
 		case HCSR04_L:
-			DDRD |= DDD5; //output
-			DDRD &= ~DDD6; //input
+			DDRD |= 0b00100000; //output
+			DDRD &= ~(0b01000000); //input
+			
+			PCMSK2 |= 0b01000000; // turn on PCINT22 pin mask (enable interrupts) (12.2.6)
+			PCICR |= 0b00000100; // turn on interrupts for group 2 (12.2.4)
 			break;
 		case HCSR04_C:
 			DDRD |= DDD7; //output
 			DDRB &= ~DDB0; //input
+			PCMSK0 |= 0b00000001; // turn on PCINT0 pin mask (enable interrupts) (12.2.8)
+			PCICR |= 0b00000001; // turn on interrupts for group 0 (12.2.4)
 			break;
 		case HCSR04_R:
 			DDRB |= DDB1; //output
 			DDRB &= ~DDB2; //input
+			PCMSK0 |= 0b00000100; // turn on PCINT2 pin mask (enable interrupts) (12.2.8)
+			PCICR |= 0b00000001; // turn on interrupts for group 0 (12.2.4)
 			break; 
 		/*case HCSR04_All:
 			DDRD |= 0b1010000; // 5 and 7 are output
@@ -71,9 +82,12 @@ int HCSR04_CheckForObstacle(HCSR04_Device device, float distance)
 
 
  float HCSR04_GetEchoDistance(HCSR04_Device device)
- {
+ {char buff[20];
 	 long duration = 0;
 	 float distance = 0.0;
+	 
+	 echoTimeStart = 0;
+	 echoTimeEnd = 0;
 	 
 	 switch(device)
 	 {
@@ -81,6 +95,8 @@ int HCSR04_CheckForObstacle(HCSR04_Device device, float distance)
 			trigger(HCSR04_L_Trig);
 			duration = waitForEcho(HCSR04_L_Echo);
 			distance = calculateDistance(duration);
+			sprintf(buff, "%f", distance);
+			SCI0_TxString(buff);
 			break;
 		case HCSR04_C:
 			trigger(HCSR04_C_Trig);
@@ -96,6 +112,15 @@ int HCSR04_CheckForObstacle(HCSR04_Device device, float distance)
 	 return distance;
  }
 
+ void HCSR04_ISR(int pin)
+ {
+	 //TODO: use pin instead of 0b01000000
+	 if(PIND & 0b01000000)
+		echoTimeStart = TCNT0;
+	 else
+		echoTimeEnd = TCNT0;
+ }
+
 
 /************************************************************************/
 /* Local  Implementation                                                */
@@ -103,24 +128,25 @@ int HCSR04_CheckForObstacle(HCSR04_Device device, float distance)
 
 void trigger(int pin)
 {
-	pin = 0;
+	//TODO: use pin instead of 0b01000000
+	PORTD &= ~(0b00100000);
 	_delay_us(2); //just to ensure we're starting a fresh pulse
-	pin = 1;
+	//pin = 1;
+	PORTD |= 0b00100000;
 	_delay_us(10); //need to wait a minimum of 10us for the 8 pulses to be sent, according to the datasheet (see header file)
-	pin = 0;
+	//pin = 0;
+	PORTD &= ~(0b00100000);
 }
 
 long waitForEcho(int pin)
 {
+	//TODO: use pin instead of 0b01000000
 	long duration = 0;
+		
+	// wait for the pin to go low
+	while(PIND & 0b01000000);
 	
-	// wait for the pin to go low (the pin is high while waiting for an echo and will go low once it's returned)
-	// track how long the pin is high for (in us) as that's the time it takes for the echo to be received
-	while(pin)
-	{
-		_delay_us(1);
-		++duration;
-	}
+	duration = echoTimeEnd - echoTimeStart;
 		
 	return duration;
 }
