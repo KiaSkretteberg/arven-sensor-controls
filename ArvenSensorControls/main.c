@@ -16,6 +16,8 @@
 #include "gd03.h"
 #include "hc-sr04.h"
 #include <stdio.h>
+#define LED 0b00000100 // PC2, pin 25
+
 // global variables
 // constant for timer output compare offset, init and ISR rearm
 const unsigned int _Timer_OC_Offset = 250; // 1 / (2000000 / 8 / 250) = 1ms (prescale 8)
@@ -36,13 +38,15 @@ int main(void)
 	// welcome message, so we know it booted OK
 	SCI0_TxString("\n328 Up! Characters will echo.\n");
 	GD03_Init();
-	HCSR04_InitDevice(HCSR04_L);
+	// requires ISR for PCI2
+	HCSR04_InitDevice(HCSR04_L);
+
 
 	// set the global interrupt flag (enable interrupts)
 	// this is backwards from the 9S12
 	sei();
-	// make portc2 (pin 25) an output (PC7)
-	DDRC |= 0b00000100;
+	// make portc2 (pin 25) an output (PC2)
+	DDRC |= LED;
 
 
 	// main program loop - don't exit
@@ -50,11 +54,11 @@ int main(void)
 	{
 		if(HCSR04_CheckForObstacle(HCSR04_L, 10))
 		{
-			PORTC |= 0b00000100; // turn on LED
+			PORTC |= LED; // turn on LED
 		}
 		else
 		{
-			PORTC &= ~(0b00000100); // turn off LED
+			PORTC &= ~LED; // turn off LED
 		}
 		// go idle!
 		sleep_cpu();
@@ -67,19 +71,16 @@ int main(void)
 			
 			/*if(gd03Load == GD03_LoadPresent)
 			{
-				PORTC |= 0b00000100; // turn on LED
+				PORTC |= LED; // turn on LED
 			}
 			else
 			{
-				PORTC &= ~(0b00000100); // turn off LED
+				PORTC &= ~LED; // turn off LED
 			}*/
-			
-			
 		}
-
 	}
 }
-// output compare A interrupt
+// output compare A interrupt for timer
 ISR(TIMER1_COMPA_vect)
 {
 	// rearm the output compare operation
@@ -89,14 +90,8 @@ ISR(TIMER1_COMPA_vect)
 	++_Ticks;
 }
 
+// ISR for PCI2, covering PCINT23 through PCINT16
 ISR (PCINT2_vect)
 {
-	HCSR04_ISR(PIND7);
-	//if(PIND & 0b10000000)
-		//PORTC |= 0b00000100; // turn on LED
-	//else
-		//PORTC &= ~(0b00000100); // turn off LED
-		
-	//PINC |= 0b00000100;
-	//PORTC ^= 0b00000100;
+	HCSR04_ISR();
 }
