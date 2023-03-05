@@ -1,19 +1,19 @@
 Archive member included to satisfy reference by file (symbol)
 
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3.o)
-                              I2C328P.o (__subsf3)
+                              libs/I2C328P.o (__subsf3)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3x.o)
                               e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3.o) (__addsf3x)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
-                              I2C328P.o (__ltsf2)
+                              libs/I2C328P.o (__ltsf2)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(divsf3.o)
-                              I2C328P.o (__divsf3)
+                              libs/I2C328P.o (__divsf3)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(divsf3x.o)
                               e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(divsf3.o) (__divsf3x)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
-                              I2C328P.o (__fixunssfsi)
+                              libs/I2C328P.o (__fixunssfsi)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(floatsisf.o)
-                              I2C328P.o (__floatunsisf)
+                              libs/I2C328P.o (__floatunsisf)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_cmp.o)
                               e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(cmpsf2.o) (__fp_cmp)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_inf.o)
@@ -31,23 +31,23 @@ e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/..
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_zero.o)
                               e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3x.o) (__fp_zero)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(gesf2.o)
-                              gd03.o (__gesf2)
+                              gd03/gd03.o (__gesf2)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(mulsf3.o)
-                              gd03.o (__mulsf3)
+                              gd03/gd03.o (__mulsf3)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
                               e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(mulsf3.o) (__mulsf3x)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libprintf_flt.a(vfprintf_flt.o)
                               (vfprintf)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodsi4.o)
-                              sci328P.o (__udivmodsi4)
+                              libs/sci328P.o (__udivmodsi4)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
                               E:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o (exit)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_tablejump2.o)
-                              atd328P.o (__tablejump2__)
+                              libs/atd328P.o (__tablejump2__)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
-                              sci328P.o (__do_copy_data)
+                              libs/sci328P.o (__do_copy_data)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_clear_bss.o)
-                              hc-sr04.o (__do_clear_bss)
+                              hc-sr04/hc-sr04.o (__do_clear_bss)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_prologue.o)
                               e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libprintf_flt.a(vfprintf_flt.o) (__prologue_saves__)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_epilogue.o)
@@ -61,7 +61,7 @@ e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/..
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(fputc.o)
                               e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libprintf_flt.a(vfprintf_flt.o) (fputc)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(sprintf.o)
-                              sci328P.o (sprintf)
+                              libs/sci328P.o (sprintf)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(vprintf.o)
                               (vprintf)
 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
@@ -72,111 +72,111 @@ e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/..
 Allocating common symbols
 Common symbol       size              file
 
-buff                0xc8              hc-sr04.o
+buff                0xc8              hc-sr04/hc-sr04.o
 __iob               0x6               e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(iob.o)
 
 Discarded input sections
 
  .data          0x00000000        0x0 E:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .bss           0x00000000        0x0 E:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .text          0x00000000        0x0 atd328P.o
- .data          0x00000000        0x0 atd328P.o
- .bss           0x00000000        0x0 atd328P.o
- .text          0x00000000        0x0 I2C328P.o
- .data          0x00000000        0x0 I2C328P.o
- .bss           0x00000000        0x0 I2C328P.o
+ .text          0x00000000        0x0 libs/atd328P.o
+ .data          0x00000000        0x0 libs/atd328P.o
+ .bss           0x00000000        0x0 libs/atd328P.o
+ .text          0x00000000        0x0 libs/I2C328P.o
+ .data          0x00000000        0x0 libs/I2C328P.o
+ .bss           0x00000000        0x0 libs/I2C328P.o
  .text.I2C_Init
-                0x00000000      0x172 I2C328P.o
+                0x00000000      0x172 libs/I2C328P.o
  .text.I2C_Scan
-                0x00000000       0x86 I2C328P.o
+                0x00000000       0x86 libs/I2C328P.o
  .text.I2C_Start
-                0x00000000       0xf6 I2C328P.o
+                0x00000000       0xf6 libs/I2C328P.o
  .text.I2C_Read8
-                0x00000000       0xd4 I2C328P.o
+                0x00000000       0xd4 libs/I2C328P.o
  .text.I2C_Write8
-                0x00000000       0x86 I2C328P.o
- .debug_info    0x00000000      0x1e3 I2C328P.o
- .debug_abbrev  0x00000000       0xfc I2C328P.o
- .debug_loc     0x00000000      0x181 I2C328P.o
+                0x00000000       0x86 libs/I2C328P.o
+ .debug_info    0x00000000      0x1e3 libs/I2C328P.o
+ .debug_abbrev  0x00000000       0xfc libs/I2C328P.o
+ .debug_loc     0x00000000      0x181 libs/I2C328P.o
  .debug_aranges
-                0x00000000       0x40 I2C328P.o
- .debug_ranges  0x00000000       0x30 I2C328P.o
- .debug_line    0x00000000      0x2f0 I2C328P.o
- .debug_str     0x00000000      0x20b I2C328P.o
- .comment       0x00000000       0x31 I2C328P.o
- .debug_frame   0x00000000       0xc0 I2C328P.o
- .text          0x00000000        0x0 sci328P.o
- .data          0x00000000        0x0 sci328P.o
- .bss           0x00000000        0x0 sci328P.o
- .rodata        0x00000000        0xb sci328P.o
+                0x00000000       0x40 libs/I2C328P.o
+ .debug_ranges  0x00000000       0x30 libs/I2C328P.o
+ .debug_line    0x00000000      0x2f0 libs/I2C328P.o
+ .debug_str     0x00000000      0x20b libs/I2C328P.o
+ .comment       0x00000000       0x31 libs/I2C328P.o
+ .debug_frame   0x00000000       0xc0 libs/I2C328P.o
+ .text          0x00000000        0x0 libs/sci328P.o
+ .data          0x00000000        0x0 libs/sci328P.o
+ .bss           0x00000000        0x0 libs/sci328P.o
+ .rodata        0x00000000        0xb libs/sci328P.o
  .text.SCI0_Tx16H
-                0x00000000       0x86 sci328P.o
+                0x00000000       0x86 libs/sci328P.o
  .text.SCI0_RxByte
-                0x00000000       0x3e sci328P.o
- .text          0x00000000        0x0 timer328P.o
- .data          0x00000000        0x0 timer328P.o
- .bss           0x00000000        0x0 timer328P.o
+                0x00000000       0x3e libs/sci328P.o
+ .text          0x00000000        0x0 libs/timer328P.o
+ .data          0x00000000        0x0 libs/timer328P.o
+ .bss           0x00000000        0x0 libs/timer328P.o
  .text.Timer_F_PWM0
-                0x00000000       0x8c timer328P.o
- .text          0x00000000        0x0 encoder-36gp.o
- .data          0x00000000        0x0 encoder-36gp.o
- .bss           0x00000000        0x0 encoder-36gp.o
+                0x00000000       0x8c libs/timer328P.o
+ .text          0x00000000        0x0 backup-sens/backup-sens.o
+ .data          0x00000000        0x0 backup-sens/backup-sens.o
+ .bss           0x00000000        0x0 backup-sens/backup-sens.o
+ .debug_info    0x00000000       0x56 backup-sens/backup-sens.o
+ .debug_abbrev  0x00000000       0x26 backup-sens/backup-sens.o
+ .debug_aranges
+                0x00000000       0x18 backup-sens/backup-sens.o
+ .debug_line    0x00000000       0x1a backup-sens/backup-sens.o
+ .debug_str     0x00000000      0x176 backup-sens/backup-sens.o
+ .comment       0x00000000       0x31 backup-sens/backup-sens.o
+ .text          0x00000000        0x0 encoder-36gp/encoder-36gp.o
+ .data          0x00000000        0x0 encoder-36gp/encoder-36gp.o
+ .bss           0x00000000        0x0 encoder-36gp/encoder-36gp.o
  .text.Encoder36GP_InitAll
-                0x00000000       0x10 encoder-36gp.o
+                0x00000000       0x10 encoder-36gp/encoder-36gp.o
  .text.Encoder36GP_InitMotor
-                0x00000000       0x16 encoder-36gp.o
- .debug_info    0x00000000       0xc1 encoder-36gp.o
- .debug_abbrev  0x00000000       0x90 encoder-36gp.o
- .debug_loc     0x00000000       0x83 encoder-36gp.o
+                0x00000000       0x16 encoder-36gp/encoder-36gp.o
+ .debug_info    0x00000000       0xc1 encoder-36gp/encoder-36gp.o
+ .debug_abbrev  0x00000000       0x90 encoder-36gp/encoder-36gp.o
+ .debug_loc     0x00000000       0x83 encoder-36gp/encoder-36gp.o
  .debug_aranges
-                0x00000000       0x28 encoder-36gp.o
- .debug_ranges  0x00000000       0x18 encoder-36gp.o
- .debug_line    0x00000000       0x6f encoder-36gp.o
- .debug_str     0x00000000      0x1cd encoder-36gp.o
- .comment       0x00000000       0x31 encoder-36gp.o
- .debug_frame   0x00000000       0x54 encoder-36gp.o
- .text          0x00000000        0x0 backup-sens.o
- .data          0x00000000        0x0 backup-sens.o
- .bss           0x00000000        0x0 backup-sens.o
- .debug_info    0x00000000       0x56 backup-sens.o
- .debug_abbrev  0x00000000       0x26 backup-sens.o
- .debug_aranges
-                0x00000000       0x18 backup-sens.o
- .debug_line    0x00000000       0x1a backup-sens.o
- .debug_str     0x00000000      0x16c backup-sens.o
- .comment       0x00000000       0x31 backup-sens.o
- .text          0x00000000        0x0 gd03.o
- .data          0x00000000        0x0 gd03.o
- .bss           0x00000000        0x0 gd03.o
+                0x00000000       0x28 encoder-36gp/encoder-36gp.o
+ .debug_ranges  0x00000000       0x18 encoder-36gp/encoder-36gp.o
+ .debug_line    0x00000000       0x7a encoder-36gp/encoder-36gp.o
+ .debug_str     0x00000000      0x1d8 encoder-36gp/encoder-36gp.o
+ .comment       0x00000000       0x31 encoder-36gp/encoder-36gp.o
+ .debug_frame   0x00000000       0x54 encoder-36gp/encoder-36gp.o
+ .text          0x00000000        0x0 gd03/gd03.o
+ .data          0x00000000        0x0 gd03/gd03.o
+ .bss           0x00000000        0x0 gd03/gd03.o
  .text.GD03_DetermineWeight
-                0x00000000       0x86 gd03.o
+                0x00000000       0x86 gd03/gd03.o
  .text.GD03_CheckForLoad
-                0x00000000       0x52 gd03.o
+                0x00000000       0x52 gd03/gd03.o
  .text.GD03_CheckForWeightChange
-                0x00000000       0xb8 gd03.o
+                0x00000000       0xb8 gd03/gd03.o
  .text.measureVoltage
-                0x00000000       0xa0 gd03.o
- .text          0x00000000        0x0 hc-sr04.o
- .data          0x00000000        0x0 hc-sr04.o
- .bss           0x00000000        0x0 hc-sr04.o
+                0x00000000       0xa0 gd03/gd03.o
+ .text          0x00000000        0x0 hc-sr04/hc-sr04.o
+ .data          0x00000000        0x0 hc-sr04/hc-sr04.o
+ .bss           0x00000000        0x0 hc-sr04/hc-sr04.o
  .text.HCSR04_InitAll
-                0x00000000       0x22 hc-sr04.o
- COMMON         0x00000000       0xc8 hc-sr04.o
+                0x00000000       0x22 hc-sr04/hc-sr04.o
+ COMMON         0x00000000       0xc8 hc-sr04/hc-sr04.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
  .rodata._Timer_OC_Offset
                 0x00000000        0x2 main.o
- .text          0x00000000        0x0 sen0427.o
- .data          0x00000000        0x0 sen0427.o
- .bss           0x00000000        0x0 sen0427.o
- .debug_info    0x00000000       0x56 sen0427.o
- .debug_abbrev  0x00000000       0x26 sen0427.o
+ .text          0x00000000        0x0 sen0427/sen0427.o
+ .data          0x00000000        0x0 sen0427/sen0427.o
+ .bss           0x00000000        0x0 sen0427/sen0427.o
+ .debug_info    0x00000000       0x56 sen0427/sen0427.o
+ .debug_abbrev  0x00000000       0x26 sen0427/sen0427.o
  .debug_aranges
-                0x00000000       0x18 sen0427.o
- .debug_line    0x00000000       0x1a sen0427.o
- .debug_str     0x00000000      0x168 sen0427.o
- .comment       0x00000000       0x31 sen0427.o
+                0x00000000       0x18 sen0427/sen0427.o
+ .debug_line    0x00000000       0x1a sen0427/sen0427.o
+ .debug_str     0x00000000      0x16e sen0427/sen0427.o
+ .comment       0x00000000       0x31 sen0427/sen0427.o
  .text          0x00000000        0x0 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3.o)
  .data          0x00000000        0x0 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3.o)
  .bss           0x00000000        0x0 e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3.o)
@@ -387,16 +387,16 @@ Linker script and memory map
 
 Address of section .data set to 0x800100
 LOAD E:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
-LOAD atd328P.o
-LOAD I2C328P.o
-LOAD sci328P.o
-LOAD timer328P.o
-LOAD encoder-36gp.o
-LOAD backup-sens.o
-LOAD gd03.o
-LOAD hc-sr04.o
+LOAD libs/atd328P.o
+LOAD libs/I2C328P.o
+LOAD libs/sci328P.o
+LOAD libs/timer328P.o
+LOAD backup-sens/backup-sens.o
+LOAD encoder-36gp/encoder-36gp.o
+LOAD gd03/gd03.o
+LOAD hc-sr04/hc-sr04.o
 LOAD main.o
-LOAD sen0427.o
+LOAD sen0427/sen0427.o
 START GROUP
 LOAD e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a
 END GROUP
@@ -516,7 +516,7 @@ END GROUP
  *(.vectors)
  *(.progmem.gcc*)
  .progmem.gcc_sw_table.AtoD_SetChannel
-                0x00000068       0x10 atd328P.o
+                0x00000068       0x10 libs/atd328P.o
                 0x00000078                . = ALIGN (0x2)
                 0x00000078                __trampolines_start = .
  *(.trampolines)
@@ -598,45 +598,45 @@ END GROUP
                 0x000001b8                . = ALIGN (0x2)
  *(.text.*)
  .text.AtoD_Init
-                0x000001b8       0x48 atd328P.o
+                0x000001b8       0x48 libs/atd328P.o
                 0x000001b8                AtoD_Init
  .text.AtoD_SetChannel
-                0x00000200      0x110 atd328P.o
+                0x00000200      0x110 libs/atd328P.o
                 0x00000200                AtoD_SetChannel
  .text.SCI0_Init
-                0x00000310      0x120 sci328P.o
+                0x00000310      0x120 libs/sci328P.o
                 0x00000310                SCI0_Init
  .text.SCI0_BSend
-                0x00000430       0x54 sci328P.o
+                0x00000430       0x54 libs/sci328P.o
                 0x00000430                SCI0_BSend
  .text.SCI0_TxString
-                0x00000484       0x3e sci328P.o
+                0x00000484       0x3e libs/sci328P.o
                 0x00000484                SCI0_TxString
  .text.Timer_Init
-                0x000004c2       0x74 timer328P.o
+                0x000004c2       0x74 libs/timer328P.o
                 0x000004c2                Timer_Init
  .text.GD03_Init
-                0x00000536       0x16 gd03.o
+                0x00000536       0x16 gd03/gd03.o
                 0x00000536                GD03_Init
  .text.HCSR04_InitDevice
-                0x0000054c      0x10e hc-sr04.o
+                0x0000054c      0x10e hc-sr04/hc-sr04.o
                 0x0000054c                HCSR04_InitDevice
  .text.HCSR04_CheckForObstacle
-                0x0000065a       0x7a hc-sr04.o
+                0x0000065a       0x7a hc-sr04/hc-sr04.o
                 0x0000065a                HCSR04_CheckForObstacle
  .text.HCSR04_GetEchoDistance
-                0x000006d4       0xb0 hc-sr04.o
+                0x000006d4       0xb0 hc-sr04/hc-sr04.o
                 0x000006d4                HCSR04_GetEchoDistance
  .text.HCSR04_ISR
-                0x00000784       0xd0 hc-sr04.o
+                0x00000784       0xd0 hc-sr04/hc-sr04.o
                 0x00000784                HCSR04_ISR
- .text.trigger  0x00000854      0x4c2 hc-sr04.o
+ .text.trigger  0x00000854      0x4c2 hc-sr04/hc-sr04.o
                 0x00000854                trigger
  .text.waitForEcho
-                0x00000d16       0x88 hc-sr04.o
+                0x00000d16       0x88 hc-sr04/hc-sr04.o
                 0x00000d16                waitForEcho
  .text.calculateDistance
-                0x00000d9e       0x7a hc-sr04.o
+                0x00000d9e       0x7a hc-sr04/hc-sr04.o
                 0x00000d9e                calculateDistance
  .text.main     0x00000e18       0xe2 main.o
                 0x00000e18                main
@@ -768,7 +768,7 @@ END GROUP
  *(.data)
  *(.data*)
  .data.activeDevice
-                0x00800100        0x1 hc-sr04.o
+                0x00800100        0x1 hc-sr04/hc-sr04.o
                 0x00800100                activeDevice
  *(.gnu.linkonce.d*)
  *(.rodata)
@@ -785,10 +785,10 @@ END GROUP
  *(.bss)
  *(.bss*)
  .bss.echoTimeStart
-                0x00800122        0x4 hc-sr04.o
+                0x00800122        0x4 hc-sr04/hc-sr04.o
                 0x00800122                echoTimeStart
  .bss.echoTimeEnd
-                0x00800126        0x4 hc-sr04.o
+                0x00800126        0x4 hc-sr04/hc-sr04.o
                 0x00800126                echoTimeEnd
  .bss._Ticks    0x0080012a        0x2 main.o
                 0x0080012a                _Ticks
@@ -845,12 +845,12 @@ END GROUP
 
 .comment        0x00000000       0x5c
  *(.comment)
- .comment       0x00000000       0x30 atd328P.o
+ .comment       0x00000000       0x30 libs/atd328P.o
                                  0x31 (size before relaxing)
- .comment       0x00000030       0x31 sci328P.o
- .comment       0x00000030       0x31 timer328P.o
- .comment       0x00000030       0x31 gd03.o
- .comment       0x00000030       0x31 hc-sr04.o
+ .comment       0x00000030       0x31 libs/sci328P.o
+ .comment       0x00000030       0x31 libs/timer328P.o
+ .comment       0x00000030       0x31 gd03/gd03.o
+ .comment       0x00000030       0x31 hc-sr04/hc-sr04.o
  .comment       0x00000030       0x31 main.o
  .comment       0x00000030       0x2c e:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libprintf_flt.a(vfprintf_flt.o)
                                  0x2d (size before relaxing)
@@ -881,15 +881,15 @@ END GROUP
 .debug_aranges  0x00000000      0x158
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x28 atd328P.o
+                0x00000000       0x28 libs/atd328P.o
  .debug_aranges
-                0x00000028       0x40 sci328P.o
+                0x00000028       0x40 libs/sci328P.o
  .debug_aranges
-                0x00000068       0x28 timer328P.o
+                0x00000068       0x28 libs/timer328P.o
  .debug_aranges
-                0x00000090       0x40 gd03.o
+                0x00000090       0x40 gd03/gd03.o
  .debug_aranges
-                0x000000d0       0x58 hc-sr04.o
+                0x000000d0       0x58 hc-sr04/hc-sr04.o
  .debug_aranges
                 0x00000128       0x30 main.o
 
@@ -899,65 +899,65 @@ END GROUP
 .debug_info     0x00000000     0x13bc
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 E:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_info    0x000005f4      0x120 atd328P.o
- .debug_info    0x00000714      0x1b1 sci328P.o
- .debug_info    0x000008c5      0x1ba timer328P.o
- .debug_info    0x00000a7f      0x26c gd03.o
- .debug_info    0x00000ceb      0x569 hc-sr04.o
+ .debug_info    0x000005f4      0x120 libs/atd328P.o
+ .debug_info    0x00000714      0x1b1 libs/sci328P.o
+ .debug_info    0x000008c5      0x1ba libs/timer328P.o
+ .debug_info    0x00000a7f      0x26c gd03/gd03.o
+ .debug_info    0x00000ceb      0x569 hc-sr04/hc-sr04.o
  .debug_info    0x00001254      0x168 main.o
 
 .debug_abbrev   0x00000000      0xb37
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x5a2 E:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_abbrev  0x000005a2       0x94 atd328P.o
- .debug_abbrev  0x00000636       0xd1 sci328P.o
- .debug_abbrev  0x00000707       0xa3 timer328P.o
- .debug_abbrev  0x000007aa       0xdd gd03.o
- .debug_abbrev  0x00000887      0x1d4 hc-sr04.o
+ .debug_abbrev  0x000005a2       0x94 libs/atd328P.o
+ .debug_abbrev  0x00000636       0xd1 libs/sci328P.o
+ .debug_abbrev  0x00000707       0xa3 libs/timer328P.o
+ .debug_abbrev  0x000007aa       0xdd gd03/gd03.o
+ .debug_abbrev  0x00000887      0x1d4 hc-sr04/hc-sr04.o
  .debug_abbrev  0x00000a5b       0xdc main.o
 
-.debug_line     0x00000000      0xd1e
+.debug_line     0x00000000      0xd34
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x134 E:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_line    0x00000134      0x15c atd328P.o
- .debug_line    0x00000290      0x1b4 sci328P.o
- .debug_line    0x00000444      0x11e timer328P.o
- .debug_line    0x00000562      0x195 gd03.o
- .debug_line    0x000006f7      0x4c4 hc-sr04.o
- .debug_line    0x00000bbb      0x163 main.o
+ .debug_line    0x00000134      0x15c libs/atd328P.o
+ .debug_line    0x00000290      0x1b4 libs/sci328P.o
+ .debug_line    0x00000444      0x11e libs/timer328P.o
+ .debug_line    0x00000562      0x198 gd03/gd03.o
+ .debug_line    0x000006fa      0x4ca hc-sr04/hc-sr04.o
+ .debug_line    0x00000bc4      0x170 main.o
 
 .debug_frame    0x00000000      0x440
  *(.debug_frame)
- .debug_frame   0x00000000       0x54 atd328P.o
- .debug_frame   0x00000054       0xc0 sci328P.o
- .debug_frame   0x00000114       0x54 timer328P.o
- .debug_frame   0x00000168       0xbc gd03.o
- .debug_frame   0x00000224      0x128 hc-sr04.o
+ .debug_frame   0x00000000       0x54 libs/atd328P.o
+ .debug_frame   0x00000054       0xc0 libs/sci328P.o
+ .debug_frame   0x00000114       0x54 libs/timer328P.o
+ .debug_frame   0x00000168       0xbc gd03/gd03.o
+ .debug_frame   0x00000224      0x128 hc-sr04/hc-sr04.o
  .debug_frame   0x0000034c       0xf4 main.o
 
-.debug_str      0x00000000      0x99d
+.debug_str      0x00000000      0x9a6
  *(.debug_str)
  .debug_str     0x00000000      0x208 E:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_str     0x00000208      0x206 atd328P.o
+ .debug_str     0x00000208      0x206 libs/atd328P.o
                                 0x23f (size before relaxing)
- .debug_str     0x0000040e       0x86 sci328P.o
+ .debug_str     0x0000040e       0x86 libs/sci328P.o
                                 0x1ec (size before relaxing)
- .debug_str     0x00000494      0x1e2 timer328P.o
+ .debug_str     0x00000494      0x1e2 libs/timer328P.o
                                 0x348 (size before relaxing)
- .debug_str     0x00000676      0x148 gd03.o
-                                0x35b (size before relaxing)
- .debug_str     0x000007be      0x17d hc-sr04.o
-                                0x300 (size before relaxing)
- .debug_str     0x0000093b       0x62 main.o
+ .debug_str     0x00000676      0x14b gd03/gd03.o
+                                0x35e (size before relaxing)
+ .debug_str     0x000007c1      0x183 hc-sr04/hc-sr04.o
+                                0x306 (size before relaxing)
+ .debug_str     0x00000944       0x62 main.o
                                 0x262 (size before relaxing)
 
 .debug_loc      0x00000000      0x879
  *(.debug_loc)
- .debug_loc     0x00000000       0x90 atd328P.o
- .debug_loc     0x00000090      0x180 sci328P.o
- .debug_loc     0x00000210       0x90 timer328P.o
- .debug_loc     0x000002a0      0x165 gd03.o
- .debug_loc     0x00000405      0x264 hc-sr04.o
+ .debug_loc     0x00000000       0x90 libs/atd328P.o
+ .debug_loc     0x00000090      0x180 libs/sci328P.o
+ .debug_loc     0x00000210       0x90 libs/timer328P.o
+ .debug_loc     0x000002a0      0x165 gd03/gd03.o
+ .debug_loc     0x00000405      0x264 hc-sr04/hc-sr04.o
  .debug_loc     0x00000669      0x210 main.o
 
 .debug_macinfo
@@ -980,11 +980,11 @@ END GROUP
 
 .debug_ranges   0x00000000      0x110
  *(.debug_ranges)
- .debug_ranges  0x00000000       0x18 atd328P.o
- .debug_ranges  0x00000018       0x30 sci328P.o
- .debug_ranges  0x00000048       0x18 timer328P.o
- .debug_ranges  0x00000060       0x30 gd03.o
- .debug_ranges  0x00000090       0x60 hc-sr04.o
+ .debug_ranges  0x00000000       0x18 libs/atd328P.o
+ .debug_ranges  0x00000018       0x30 libs/sci328P.o
+ .debug_ranges  0x00000048       0x18 libs/timer328P.o
+ .debug_ranges  0x00000060       0x30 gd03/gd03.o
+ .debug_ranges  0x00000090       0x60 hc-sr04/hc-sr04.o
  .debug_ranges  0x000000f0       0x20 main.o
 
 .debug_macro

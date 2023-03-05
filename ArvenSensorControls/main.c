@@ -13,8 +13,8 @@
 #include "timer.h"
 #include "atd.h"
 #include "sci.h"
-#include "gd03.h"
-#include "hc-sr04.h"
+#include "gd03/gd03.h"
+#include "hc-sr04/hc-sr04.h"
 #include <stdio.h>
 #define LED 0b00000100 // PC2, pin 25
 
