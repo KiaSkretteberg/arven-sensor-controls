@@ -10,15 +10,15 @@
 
 ..\lib\timer328P.c
 
-encoder-36gp.c
+backup-sens\backup-sens.c
 
-backup-sens.c
+encoder-36gp\encoder-36gp.c
 
-gd03.c
+gd03\gd03.c
 
-hc-sr04.c
+hc-sr04\hc-sr04.c
 
 main.c
 
-sen0427.c
+sen0427\sen0427.c
 
