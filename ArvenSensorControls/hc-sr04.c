@@ -6,19 +6,18 @@
  * Created: 2023-02-24 1:36:28 PM
  *  Author: Kia Skretteberg
  */
- #define F_CPU 2E6 // with external xtal enabled, and clock div/8, bus == 2MHz
+ #define F_CPU 16E6 // with external xtal enabled, and clock div/8, bus == 2MHz
  #include <avr/io.h>
  #include <stdio.h>
  #include <util/delay.h> // have to add, has delay implementation (requires F_CPU to be defined)
  #include "hc-sr04.h"
- #include "sci.h"
  
 /************************************************************************/
 /* Local Definitions (private functions)                                */
 /************************************************************************/
  
 // Toggle the specified pin low for 2us, then high for 10us, then back to low, in order to send out a pulse
-void trigger(HCSR04_Device device);
+int trigger(HCSR04_Device device);
  
 // Wait for the echo signal to go low from the specified pin
 long waitForEcho(HCSR04_Device device);
@@ -34,6 +33,8 @@ float calculateDistance(long duration);
 volatile long echoTimeStart = 0;
 volatile long echoTimeEnd = 0;
 volatile HCSR04_Device activeDevice = HCSR04_None;
+
+volatile char buff[200];
 
  
 /************************************************************************/
@@ -72,6 +73,8 @@ volatile HCSR04_Device activeDevice = HCSR04_None;
 			PCMSK0 |= HCSR04_R_Echo; // turn on PCINT2 pin mask (enable interrupts) (12.2.8)
 			PCICR |= 0b00000001; // turn on interrupts for group 0 (12.2.4)
 			break; 
+		default:
+			break;
 		/*case HCSR04_All:
 			DDRD |= 0b1010000; // 5 and 7 are output
 			DDRD &= ~(0b01000000) //6 is input
@@ -85,38 +88,21 @@ int HCSR04_CheckForObstacle(HCSR04_Device device, float distance)
 {
 	float dDistance = HCSR04_GetEchoDistance(device);
 	 
-	return dDistance < distance ? 1 : 0;
+	return dDistance >= 0 && dDistance < distance ? 1 : 0;
 }
 
 
  float HCSR04_GetEchoDistance(HCSR04_Device device)
  {
-	 char buff[20];
 	 long duration = 0;
-	 float distance = 0.0;
+	 float distance = -1;
 	 
 	 echoTimeStart = 0;
 	 echoTimeEnd = 0;
-	 
-	 switch(device)
+	 if(trigger(device))
 	 {
-		case HCSR04_L:
-			trigger(HCSR04_L);
-			duration = waitForEcho(HCSR04_L);
-			distance = calculateDistance(duration);
-			sprintf(buff, "%f", distance);
-			SCI0_TxString(buff);
-			break;
-		case HCSR04_C:
-			trigger(HCSR04_C);
-			duration = waitForEcho(HCSR04_C);
-			distance = calculateDistance(duration);
-			break;
-		case HCSR04_R:
-			trigger(HCSR04_R);
-			duration = waitForEcho(HCSR04_R);
-			distance = calculateDistance(duration);
-			break;
+		 duration = waitForEcho(device);
+		 if(duration >= 0) distance = calculateDistance(duration);
 	 }
 	 return distance;
  }
@@ -139,17 +125,19 @@ int HCSR04_CheckForObstacle(HCSR04_Device device, float distance)
 			 case HCSR04_R:
 				condition = PINB & HCSR04_R_Echo;
 				break;
+			default:
+				break;
 		 }
 		 
 		 // When the echo starts, track current TCNT value
 		 if(condition)
 		 {
-			 echoTimeStart = TCNT0;
+			 echoTimeStart = TCNT1;
 		 }
 		 // When echo ends, track the new TCNT value and indicate no device is active
 		 else
 		 {
-			 echoTimeEnd = TCNT0;
+			 echoTimeEnd = TCNT1;
 			 activeDevice = HCSR04_None;
 		 }
 	 }
@@ -182,6 +170,8 @@ int trigger(HCSR04_Device device)
 			case HCSR04_R:
 				pin = HCSR04_R_Trig;
 				break;
+			default:
+				break;
 		}
 	
 		// set pin low for 2 us to ensure we're starting with a fresh pulse
@@ -206,12 +196,10 @@ long waitForEcho(HCSR04_Device device)
 	// ensure this is the active device before waiting for echo
 	if(activeDevice == device)
 	{
-		long duration = 0;
-		
 		// wait for the device to no longer be active, meaning the echo finished
 		while(activeDevice == device);
 		
-		return echoTimeEnd - echoTimeStart;
+		return (echoTimeEnd - echoTimeStart)/2; // actual value is in 0.5us, so need to divide by 2 to get 1us units
 	}
 	
 	// active device is not this device, return invalid duration
