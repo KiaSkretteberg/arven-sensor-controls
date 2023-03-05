@@ -5,7 +5,7 @@
  * Author : Kia Skretteberg
  */ 
 
-#define F_CPU 2E6 // with external xtal enabled, and clock div/8, bus == 2MHz
+#define F_CPU 16E6 // with external xtal enabled, and clock div/8, bus == 2MHz
 #include <avr/io.h>
 #include <util/delay.h> // have to add, has delay implementation (requires F_CPU to be defined)
 #include <avr/sleep.h>
@@ -20,7 +20,7 @@
 
 // global variables
 // constant for timer output compare offset, init and ISR rearm
-const unsigned int _Timer_OC_Offset = 250; // 1 / (2000000 / 8 / 250) = 1ms (prescale 8)
+const unsigned int _Timer_OC_Offset = 1000; // 1 / (16000000 / 8 / 1000) = 0.5ms (prescale 8) -- wanted prescale 16
 // global counter for timer ISR, used as reference to coordinate activities
 volatile unsigned int _Ticks = 0;
 int main(void)
