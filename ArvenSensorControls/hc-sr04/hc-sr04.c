@@ -75,12 +75,6 @@ volatile char buff[200];
 			break; 
 		default:
 			break;
-		/*case HCSR04_All:
-			DDRD |= 0b1010000; // 5 and 7 are output
-			DDRD &= ~(0b01000000) //6 is input
-			DDRB |= 0b0000010; // 1 is output
-			DDRB &= ~(0b01000101) //0 and 2 are input
-			break;*/
 	 }
  }
  

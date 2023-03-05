@@ -15,6 +15,7 @@
 #include "sci.h"
 #include "gd03/gd03.h"
 #include "hc-sr04/hc-sr04.h"
+#include "backup-sens/backup-sens.h"
 #include <stdio.h>
 #define LED 0b00000100 // PC2, pin 25
 
@@ -26,7 +27,7 @@ volatile unsigned int _Ticks = 0;
 int main(void)
 {
 	// variable for managing the A/D update
-	const unsigned int cuiAtoDEventCount = 500; // every 1/2 second
+	const unsigned int cuiAtoDEventCount = 1000; // every 1/2 second
 	unsigned int uiAtoDEventNext = cuiAtoDEventCount;
 	// one-time initialization section
 	// bring up the timer, requires ISR!
@@ -39,7 +40,9 @@ int main(void)
 	SCI0_TxString("\n328 Up! Characters will echo.\n");
 	GD03_Init();
 	// requires ISR for PCI2
-	HCSR04_InitDevice(HCSR04_L);
+	Back_Sens_InitAll();
+	// requires ISR for PCI2 & PCI0
+	HCSR04_InitAll();
 
 
 	// set the global interrupt flag (enable interrupts)
@@ -52,14 +55,14 @@ int main(void)
 	// main program loop - don't exit
 	while(1)
 	{
-		if(HCSR04_CheckForObstacle(HCSR04_L, 10))
+		/*if(HCSR04_CheckForObstacle(HCSR04_L, 10))
 		{
 			PORTC |= LED; // turn on LED
 		}
 		else
 		{
 			PORTC &= ~LED; // turn off LED
-		}
+		}*/
 		// go idle!
 		sleep_cpu();
 
@@ -94,4 +97,20 @@ ISR(TIMER1_COMPA_vect)
 ISR (PCINT2_vect)
 {
 	HCSR04_ISR();
+	
+	// hit something, turn on led
+	/*if(Back_Sens_ISR())
+	{
+		PORTC |= LED; // turn on LED
+	}
+	else
+	{
+		PORTC &= ~LED; // turn off LED
+	}*/
+}
+
+// ISR for PCI0, covering PCINT0 through PCINT8
+ISR (PCINT0_vect)
+{
+	HCSR04_ISR();	
 }
