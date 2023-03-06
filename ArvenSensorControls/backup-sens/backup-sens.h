@@ -12,8 +12,8 @@
 // Initialize all backup sensors (switches)
 void Back_Sens_InitAll(void);
 
-// Initialize the specified switch as inputs with interrupts enabled
-void Back_Sens_Init(int sens);
+// Initialize the specified switch as input with interrupts enabled
+void Back_Sens_InitSens(int sens);
 
 // ISR for detecting if a backup sensor was triggered, if either triggered returns 1, else 0
 int Back_Sens_ISR();

@@ -20,11 +20,11 @@
 
 void Back_Sens_InitAll(void)
 {
-	Back_Sens_Init(Back_Sens_L);
-	Back_Sens_Init(Back_Sens_R);
+	Back_Sens_InitSens(Back_Sens_L);
+	Back_Sens_InitSens(Back_Sens_R);
 }
 
-void Back_Sens_Init(int sens)
+void Back_Sens_InitSens(int sens)
 {
 	DDRD &= ~sens; //input
 	
@@ -32,7 +32,6 @@ void Back_Sens_Init(int sens)
 	PCICR |= 0b00000100; // turn on interrupts for group 2 (12.2.4)
 }
 
-// ISR for detecting if a backup sensor was triggered
 int Back_Sens_ISR()
 {
 	// one of the sensors was hit, doesn't matter which!
