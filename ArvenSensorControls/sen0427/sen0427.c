@@ -44,11 +44,14 @@ int SEN0427_InitDevice(SEN0427_Device device)
 
     // check if a device exists at the specified address, error out if there's no device
     I2C_Scan(deviceExistsScanBuff);
-    if(!deviceExistsScanBuff[SEN0427_Addr])
+    if(deviceExistsScanBuff[SEN0427_Addr])
+    {
+	    reAddressDevice(device);
+    }
+	else if(!deviceExistsScanBuff[getDeviceAddr(device)])
     {
         return -1;
     }
-	reAddressDevice(device);
 
     // initialize the device
     if(read8bit(device, VL6180X_SYSTEM_FRESH_OUT_OF_RESET))
@@ -170,7 +173,7 @@ unsigned char read8bit(SEN0427_Device device, uint16_t registerAddr)
     // switch to read
     I2C_Start(deviceAddr, I2C_READ);
     // grab the data, and we're done
-    I2C_Read8(&data, I2C_ACK, I2C_STOP);
+    I2C_Read8(&data, I2C_NACK, I2C_STOP);
     return data;
 }
 
