@@ -45,8 +45,7 @@ int main(void)
 	// welcome message, so we know it booted OK
 	SCI0_TxString("\n328 Up! Characters will echo.\n");
 	GD03_Init();
-	if(SEN0427_InitDevice(SEN0427_L))
-		PORTC |= LED; // turn on LED
+	SEN0427_InitDevice(SEN0427_L);
 	
 	// requires ISR for PCI2
 	Back_Sens_InitAll();
@@ -62,6 +61,17 @@ int main(void)
 	// main program loop - don't exit
 	while(1)
 	{
+		char buff[200];
+		/*switch(SEN0427_GetRangeResult(SEN0427_L))
+		{
+			case SEN0427_RangeResult__NO_ERR:
+				sprintf(buff, "distance: %i mm", SEN0427_GetSingleMeasurement(SEN0427_L));
+				SCI0_TxString(buff);
+				break;
+			default:
+				PORTC |= LED; // turn on LED
+				break;
+		}*/
 		/*if(HCSR04_CheckForObstacle(HCSR04_L, 10))
 		{
 			PORTC |= LED; // turn on LED
