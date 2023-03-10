@@ -7,7 +7,7 @@
 * ports : PORTA & PORTB
 *
 * Datasheet: 
-*https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf
+* https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf
 *
 * ********* NOTE: *************
 * This is using IOCON.BANK = 0 (default), I2C at 400khz
