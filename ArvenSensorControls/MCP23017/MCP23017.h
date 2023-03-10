@@ -1,20 +1,21 @@
 /*
- * MCP23017.h
- * MCP23017 Port Expander
- * Allows for up to 16 GPI/O pins to be utilized
- * via I2C. These are addressed via 2 different 
- * ports : PORTA & PORTB
- *
- * Datasheet: 
- *https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf
- *
- ********** NOTE: *************
- * This is using IOCON.BANK = 0 (default), I2C at 400khz
- * https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf#page=16
- *
- * Created: 2023-03-10
- * Author: Nubal Manhas
- */
+* MCP23017.h
+* MCP23017 Port Expander
+*
+* Allows for up to 16 GPI/O pins to be utilized
+* via I2C. These are addressed via 2 different 
+* ports : PORTA & PORTB
+*
+* Datasheet: 
+*https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf
+*
+* ********* NOTE: *************
+* This is using IOCON.BANK = 0 (default), I2C at 400khz
+* https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf#page=16
+*
+* Created: 2023-03-10
+* Author: Nubal Manhas
+*/
 
 /* I2C address for MCP23017
 * our I2C library adjusts it
@@ -27,9 +28,11 @@
 
 /*
 * Each pin can be configured as an input/output
+*
 * According to the datasheet:
 * https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf#page=18
-* 1 = an input
+*
+* 1 = input
 * 0 = output
 */
 typedef enum
@@ -50,7 +53,7 @@ typedef enum
 * The I/O configuration bits are as follows:
 * https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf#page=16
 * 
-* PORTA (ODIRA) = 0x00
+* PORTA (IODIRA) = 0x00
 * PORTB (IODIRB) = 0x01
 */
 typedef enum
