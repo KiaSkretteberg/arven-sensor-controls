@@ -11,7 +11,7 @@
 #include <string.h>
 #include "MCP23017.h"
 
-void MCP23017_Send(MCP23017_OUTPUT output, MCP23017_PORT port, MCP23017_PINADDR pin){
+void MCP23017_Send(MCP23017_OUTPUT output, MCP23017_PORT port, MCP23017_BITADDR pin){
 	unsigned char c;
 	char b[20];
 	char portADDR;
@@ -67,7 +67,7 @@ void MCP23017_Init(MCP23017_PORT port){
 	SCI0_TxString(b);
 }
 
-void MCP23017_SetPin(PinMode mode, MCP23017_PORT port, MCP23017_PINADDR pin){
+void MCP23017_SetPin(PinMode mode, MCP23017_PORT port, MCP23017_BITADDR pin){
 	unsigned char c;
 	char b[20];
 	I2C_Start(MCP23017_Addr, 0);
@@ -79,10 +79,10 @@ void MCP23017_SetPin(PinMode mode, MCP23017_PORT port, MCP23017_PINADDR pin){
 	SCI0_TxString(b);
 	I2C_Start(MCP23017_Addr, 0);
 	I2C_Write8(port, 0); //Set to register 
-	if(mode == INPUT && !(c & (1<<pin))){
+	if(mode == MCP23017_PinMode_INPUT && !(c & (1<<pin))){
 		c|= pin;
 	}
-	if(mode == OUTPUT && (c & (1<<pin))){
+	if(mode == MCP23017_PinMode_OUTPUT && (c & (1<<pin))){
 		c &= ~pin;
 	}
 	sprintf(b, "%x", c);
@@ -98,7 +98,7 @@ void MCP23017_SetPin(PinMode mode, MCP23017_PORT port, MCP23017_PINADDR pin){
 	SCI0_TxString(b);
 }
 
-char MCP23017_ReadPin(MCP23017_PORT port, MCP23017_PINADDR pin){
+char MCP23017_ReadPin(MCP23017_PORT port, MCP23017_BITADDR pin){
 	unsigned char c;
 	char b[20];
 	I2C_Start(MCP23017_Addr, 0); //start I2C on the MCP address
