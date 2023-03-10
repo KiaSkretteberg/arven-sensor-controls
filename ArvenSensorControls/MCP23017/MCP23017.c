@@ -1,5 +1,23 @@
 /*
- */ 
+* MCP23017.h
+* MCP23017 Port Expander
+*
+* Allows for up to 16 GPI/O pins to be utilized
+* via I2C. These are addressed via 2 different 
+* ports : PORTA & PORTB
+*
+* Datasheet: 
+* https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf
+*
+* ********* NOTE: *************
+* This is using IOCON.BANK = 0 (default), I2C at 400khz. Using SCI
+* for debugging purposes
+* https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf#page=16
+*
+* Created: 2023-03-10
+* Author: Nubal Manhas
+*/
+
 #include <atmel_start.h>
 #include <stdio.h>
 #include "atd.h"
@@ -11,6 +29,9 @@
 #include <string.h>
 #include "MCP23017.h"
 
+/*
+* 
+*/
 void MCP23017_Send(MCP23017_OUTPUT output, MCP23017_PORT port, MCP23017_BITADDR pin){
 	unsigned char c;
 	char b[20];
