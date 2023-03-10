@@ -10,7 +10,8 @@
 * https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf
 *
 * ********* NOTE: *************
-* This is using IOCON.BANK = 0 (default), I2C at 400khz
+* This is using IOCON.BANK = 0 (default), I2C at 400khz. Using SCI
+* for debugging purposes
 * https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf#page=16
 *
 * Created: 2023-03-10
@@ -63,7 +64,12 @@ typedef enum
 } MCP23017_PORT;
 
 /*
-* 
+* Since each port has 8 different I/O pins, you must
+* set the bit corresponding to the pin you want to high/low
+* depending on if you want an output/input, or if
+* you want to set an output pin as high/low. This will
+* be used to set the position of the bit you want to address 
+* within the desired port.
 */
 typedef enum
 {
@@ -77,13 +83,45 @@ typedef enum
 	MCP23017_BIT7_ADDR = 0b10000000,
 } MCP23017_BITADDR;
 
+/*
+* An output is considered when a specified bit
+* for the specified port is set to 1 (high).
+* A 0 is considered as low.
+*/
 typedef enum
 {
 		MCP23017_OUTPUT_HIGH = 1,
 		MCP23017_OUTPUT_LOW = 0
 }MCP23017_OUTPUT;
 
+/*
+* Initialization routine
+*/
 void MCP23017_Init(MCP23017_PORT port);
+
+/*
+* Function to send out an output (HIGH/LOW) to a desired output bit
+*
+* output = MCP23017_HIGH or MCP23017_LOW
+* port = MCP23017_PORTA or MCP23017_PORTB
+* pin = bit within PORTA/PORTB to set (0x01-0x08 in binary)
+*/
 void MCP23017_Send(MCP23017_OUTPUT output, MCP23017_PORT port, MCP23017_BITADDR pin);
+
+/*
+* Function to read a desired bit from the specified port.
+* Input and Outputs can be read.
+*
+* port = MCP23017_PORTA or MCP23017_PORTB
+* pin = bit within PORTA/PORTB to set (0x01-0x08 in binary)
+*/
 char MCP23017_ReadPin(MCP23017_PORT port, MCP23017_BITADDR pin);
+
+/*
+* Function to set the pin mode (input or output) of a desired bit
+* 
+* port = MCP23017_PORTA or MCP23017_PORTB
+* mode = MCP23017_INPUT or MCP23017_OUTPUT
+* pin = bit within PORTA/PORTB to set (0x01-0x08 in binary)
+*/
 void MCP23017_SetPin(MCP23017_PinMode mode, MCP23017_PORT port, MCP23017_BITADDR pin);
