@@ -46,7 +46,9 @@ int main(void)
 	SCI0_TxString("\n328 Up! Characters will echo.\n");
 	GD03_Init();
 	SEN0427_InitDevice(SEN0427_L);
-	
+	MCP23017_Init(MCP23017_PORTB);	
+	MCP23017_SetPin(MCP23017_INPUT, MCP23017_PORTB, MCP23017_BIT0_ADDR);
+	MCP23017_SetPin(myMode, myPort, myPin);	
 	// requires ISR for PCI2
 	Back_Sens_InitAll();
 	// requires ISR for PCI2 & PCI0
@@ -82,7 +84,14 @@ int main(void)
 		}*/
 		// go idle!
 		sleep_cpu();
-
+		//example for MCP23017, toggling PORTB PIN1 high and low depending on 
+		//the input read from pin0
+		/*if(MCP23017_ReadPin(MCP23017_PORTB,MCP23017_BIT0_ADDR) == 1){
+			//MCP23017_Send(MCP23017_OUTPUT_HIGH,MCP23017_PORTB,MCP23017_BIT1_ADDR);
+		} else{
+			//MCP23017_Send(MCP23017_OUTPUT_LOW,MCP23017_PORTB,MCP23017_BIT1_ADDR);
+		}*/
+		//MCP23017_ReadPin(MCP23017_PORTB,MCP23017_BIT0_ADDR);
 		//// are we past the scheduled event?
 		if (uiAtoDEventNext - _Ticks > cuiAtoDEventCount)
 		{
