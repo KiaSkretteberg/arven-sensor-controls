@@ -166,6 +166,12 @@ char MCP23017_ReadPin(MCP23017_PORT port, MCP23017_BITADDR pin){
 	unsigned char c;
 	char b[20];
 	I2C_Start(MCP23017_Addr, 0); //start I2C on the MCP address
+	//check the port chosen, the r/w
+	//address will change depending
+	//on the port
+	//
+	//0x12 = PORTA
+	//0x13 = PORTB	
 	if(port == MCP23017_PORTB){
 		I2C_Write8(0x13, 0); //address port B
 	} 
