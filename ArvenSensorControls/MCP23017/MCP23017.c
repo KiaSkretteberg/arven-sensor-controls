@@ -14,6 +14,9 @@
 * for debugging purposes
 * https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf#page=16
 *
+*Other references used:
+*https://arduinodiy.wordpress.com/2017/03/14/adding-an-mcp23017-16-port-io-expander-to-arduino-or-esp8266/
+*
 * Created: 2023-03-10
 * Author: Nubal Manhas
 */
