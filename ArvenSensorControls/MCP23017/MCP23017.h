@@ -5,27 +5,63 @@
  * via I2C. These are addressed via 2 different 
  * ports : PORTA & PORTB
  *
+ * Datasheet: 
+ *https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf
+ *
+ ********** NOTE: *************
+ * This is using IOCON.BANK = 0 (default), I2C at 400khz
+ * https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf#page=16
+ *
  * Created: 2023-03-10
- *  Author: Nubal Manhas
+ * Author: Nubal Manhas
  */
 
-//I2C address for MCP23017
-//our I2C library adjusts it
-//for 7 bit addressing, so no
-//need to account for that
+/* I2C address for MCP23017
+* our I2C library adjusts it
+* for 7 bit addressing, so no
+* need to account for that.
+* This is assuming that A0, A1, and A2 are 
+* grounded. 
+*/
 #define MCP23017_Addr 0x20
 
-//
+/*
+* Each pin can be configured as an input/output
+* According to the datasheet:
+* https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf#page=18
+* 1 = an input
+* 0 = output
+*/
 typedef enum
 {
 	INPUT = 1,
 	OUTPUT = 0
 } PinMode;
+
+/*
+* According to the datasheet:
+* https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf#page=12
+* 
+* There are two ports to control 8 pins each.
+* You can enable each I/O as an input or output (ie. the
+* PinMode enum from above) by writing to the I/O 
+* configuration (IODIRA/IODIRB) bits. 
+*
+* The I/O configuration bits are as follows:
+* https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf#page=16
+* 
+* PORTA (ODIRA) = 0x00
+* PORTB (IODIRB) = 0x01
+*/
 typedef enum
 {
 	MCP23017_PORTA = 0x00,
 	MCP23017_PORTB = 0x01
 } MCP23017_PORT;
+
+/*
+* 
+*/
 typedef enum
 {
 	PIN0_ADDR = 0b00000001,
