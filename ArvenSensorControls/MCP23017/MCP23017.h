@@ -102,6 +102,11 @@ typedef enum
 */
 void MCP23017_Init(MCP23017_PORT port);
 
+/// @brief Returns 1 if the specified port has been initialized already
+/// @param port 
+/// @return 1 or 0
+bool MSCP23017_Initialized(MCP23017_PORT port);
+
 /*
 * Function to send out an output (HIGH/LOW) to a desired output bit
 *
