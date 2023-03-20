@@ -30,7 +30,7 @@
 #include "utils/utils.h"
 #include "sci.h"
 #include <string.h>
-#include "MCP23017.h"
+#include "mcp23017.h"
 
 bool portA_initialized = 0;
 bool portB_initialized = 0;

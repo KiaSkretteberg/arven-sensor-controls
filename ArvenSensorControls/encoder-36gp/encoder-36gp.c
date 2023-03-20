@@ -9,7 +9,7 @@
  #include <avr/io.h>
  #include "i2c.h"
  #include "encoder-36gp.h"
- #include "MCP23017.h"
+ #include "mcp23017.h"
 
 /************************************************************************/
 /* Local Definitions (private functions)                                */
