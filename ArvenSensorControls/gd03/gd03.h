@@ -3,7 +3,7 @@
  * GD03 Force Sensing Resistor (Weight Measurement)
  * Utilizes AtoD
  *
- * Created: 2023-02-21 5:12 PM
+ * Created: 2023-02-21
  * Author : Kia Skretteberg
  */ 
 

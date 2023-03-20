@@ -3,8 +3,8 @@
  * HC-SR04 Ultrasonic Sensor(s)
  * Utilizes GPIO
  * 
- * Created: 2023-02-24 1:36:40 PM
- *  Author: Kia Skretteberg
+ * Created: 2023-02-24
+ * Author: Kia Skretteberg
  * Operating characteristics retrieved from https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf
  */ 
 

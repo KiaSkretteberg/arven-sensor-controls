@@ -1,10 +1,8 @@
 /*
  * hc_sr04.c
- * HC-SR04 Ultrasonic Sensor(s)
- * Utilizes GPIO
  *
- * Created: 2023-02-24 1:36:28 PM
- *  Author: Kia Skretteberg
+ * Created: 2023-02-24
+ * Author: Kia Skretteberg
  */
  #define F_CPU 16E6 // with external xtal enabled, and clock div/8, bus == 2MHz
  #include <avr/io.h>

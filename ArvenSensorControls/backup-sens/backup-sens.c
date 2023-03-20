@@ -1,10 +1,8 @@
 /*
  * backup_sens.c
- * Snap Action Switches
- * Utilizes GPIO
  *
- * Created: 2023-02-25 12:52:29 PM
- *  Author: Kia Skretteberg
+ * Created: 2023-02-25
+ * Author: Kia Skretteberg
  */ 
 #include <avr/io.h>
 #include "backup-sens.h"
