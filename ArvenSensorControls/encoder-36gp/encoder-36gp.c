@@ -1,10 +1,8 @@
 /*
  * 36gp_555_27_en.c
- * 36GP-555-27-EN Encoders for Motors
- * Utilizes I2C
  *
- * Created: 2023-02-25 12:57:54 PM
- *  Author: Kia Skretteberg
+ * Created: 2023-02-25
+ * Author: Kia Skretteberg
  */
  #include <avr/io.h>
  #include "i2c.h"

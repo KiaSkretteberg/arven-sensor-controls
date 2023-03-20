@@ -3,8 +3,8 @@
  * VL6180X IR Sensor(s) Module
  * Utilizes I2C
  *
- * Created: 2023-02-25 12:54:34 PM
- *  Author: 
+ * Created: 2023-02-25
+ * Author: Kia Skretteberg & Nubal Manhas
  */ 
   // default for SEN0427 is 0x29 but can't both live on save addr so readdr'd
 #define SEN0427_Addr	0x29 // default, will need to change in initialize

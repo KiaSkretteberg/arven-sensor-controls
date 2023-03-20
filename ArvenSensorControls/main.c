@@ -21,11 +21,20 @@
 #include <stdio.h>
 #define LED 0b00000100 // PC2, pin 25
 
-// global variables
+/************************************************************************/
+/* Global Variables                                                     */
+/************************************************************************/
+
 // constant for timer output compare offset, init and ISR rearm
 const unsigned int _Timer_OC_Offset = 1000; // 1 / (16000000 / 8 / 1000) = 0.5ms (prescale 8) -- wanted prescale 16
 // global counter for timer ISR, used as reference to coordinate activities
 volatile unsigned int _Ticks = 0;
+
+
+/************************************************************************/
+/* Main Program Loop                                                    */
+/************************************************************************/
+
 int main(void)
 {
 	// variable for managing the A/D update
@@ -38,12 +47,14 @@ int main(void)
 	Timer_Init(Timer_Prescale_8, _Timer_OC_Offset); // 1ms intervals
 	// enable sleep mode, for idle, sort of similar to WAI on 9S12X (13.2)
 	sleep_enable();
-	SCI0_Init(F_CPU, 9600, 1); // 16Mhz clock, 9600 baud
 	// bring up the I2C bus, at 400kHz operation
 	I2C_Init(F_CPU, I2CBus400);
 
+	// Cannot be used while pico is initialized
+	//SCI0_Init(F_CPU, 9600, 1); // 16Mhz clock, 9600 baud
 	// welcome message, so we know it booted OK
-	SCI0_TxString("\n328 Up! Characters will echo.\n");
+	//SCI0_TxString("\n328 Up! Characters will echo.\n");
+
 	GD03_Init();
 	SEN0427_InitDevice(SEN0427_L);
 	MCP23017_Init(MCP23017_PORTB);	
@@ -109,6 +120,11 @@ int main(void)
 		}
 	}
 }
+
+/************************************************************************/
+/* ISRs				                                                    */
+/************************************************************************/
+
 // output compare A interrupt for timer
 ISR (TIMER1_COMPA_vect)
 {

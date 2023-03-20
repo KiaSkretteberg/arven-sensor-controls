@@ -3,8 +3,8 @@
  * 36GP-555-27-EN Encoders for Motors
  * Utilizes I2C
  *
- * Created: 2023-02-25 12:57:45 PM
- *  Author: Kia Skretteberg
+ * Created: 2023-02-25
+ * Author: Kia Skretteberg
  */
 typedef enum
 {

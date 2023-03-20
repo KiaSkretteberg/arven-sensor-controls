@@ -1,10 +1,8 @@
 /*
  * sen0427.c
- * VL6180X IR Sensor(s) Module
- * Utilizes I2C
  *
- * Created: 2023-02-25 12:54:21 PM
- *  Author: 
+ * Created: 2023-02-25
+ * Author: Kia Skretteberg & Nubal Manhas
  */
  #include <avr/io.h>
  #include "i2c.h"
@@ -132,9 +130,6 @@ unsigned char SEN0427_ReadRangeMeasurement(SEN0427_Device device)
 {
     return read8bit(device, 0x062);
 }
-
-
-
 
 
 /************************************************************************/

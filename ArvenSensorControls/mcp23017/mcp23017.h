@@ -1,5 +1,5 @@
 /*
-* MCP23017.h
+* mcp23017.h
 * MCP23017 Port Expander
 *
 * Allows for up to 16 GPI/O pins to be utilized
