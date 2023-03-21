@@ -6,7 +6,8 @@
  * Created: 2023-02-25
  * Author: Kia Skretteberg & Nubal Manhas
  */ 
-  // default for SEN0427 is 0x29 but can't both live on save addr so readdr'd
+
+// default for SEN0427 is 0x29 but can't both live on save addr so readdr'd
 #define SEN0427_Addr	0x29 // default, will need to change in initialize
 #define SEN0427_L_Addr	0x30
 #define SEN0427_R_Addr	0x31
@@ -103,9 +104,6 @@ void SEN0427_InitAll(void);
 
 // Initializes the specified device on I2C with proper address and settings
 int SEN0427_InitDevice(SEN0427_Device device);
-
-// Checks if the sensor no longer detects ground beneath it (1 if no ground ==> drop, 0 if ground ==> no drop)
-int SEN0427_CheckForDrop(void);
 
 // Returns the status of the current range measurement
 SEN0427_RangeResult SEN0427_GetRangeResult(SEN0427_Device device);

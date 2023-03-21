@@ -3,6 +3,9 @@
  *
  * Created: 2023-02-25
  * Author: Kia Skretteberg
+ * 
+ * TODO: Characterize the encoders to see if they're too fast to even be useful for us or if 
+ * the atmega is just too slow
  */
  #include <avr/io.h>
  #include "i2c.h"

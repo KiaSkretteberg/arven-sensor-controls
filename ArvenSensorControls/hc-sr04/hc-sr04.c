@@ -20,9 +20,6 @@ int trigger(HCSR04_Device device);
 // Wait for the echo signal to go low from the specified pin
 long waitForEcho(HCSR04_Device device);
  
-// Calculate the distance (in cm) of the sound pulse from the duration (in us)
-float calculateDistance(long duration);
- 
  
 /************************************************************************/
 /* Global Variables                                                     */
@@ -39,17 +36,17 @@ volatile char buff[200];
 /* Header Implementation                                                */
 /************************************************************************/
 
- void HCSR04_InitAll(void)
- {
-	 HCSR04_InitDevice(HCSR04_L);
-	 HCSR04_InitDevice(HCSR04_C);
-	 HCSR04_InitDevice(HCSR04_R);
- }
+void HCSR04_InitAll(void)
+{
+	HCSR04_InitDevice(HCSR04_L);
+	HCSR04_InitDevice(HCSR04_C);
+	HCSR04_InitDevice(HCSR04_R);
+}
 
- void HCSR04_InitDevice(HCSR04_Device device)
- {
-	 switch(device)
-	 {
+void HCSR04_InitDevice(HCSR04_Device device)
+{
+	switch(device)
+	{
 		case HCSR04_L:
 			DDRD |= HCSR04_L_Trig; //output
 			DDRD &= ~HCSR04_L_Echo; //input
@@ -73,67 +70,57 @@ volatile char buff[200];
 			break; 
 		default:
 			break;
-	 }
- }
- 
-int HCSR04_CheckForObstacle(HCSR04_Device device, float distance)
-{
-	float dDistance = HCSR04_GetEchoDistance(device);
-	 
-	return dDistance >= 0 && dDistance < distance ? 1 : 0;
+	}
 }
 
+long HCSR04_GetEchoDuration(HCSR04_Device device)
+{
+	long duration = 0;
+	
+	echoTimeStart = 0;
+	echoTimeEnd = 0;
+	if(trigger(device))
+	{
+		duration = waitForEcho(device);
+	}
+	return duration / 2; // divide 2 in order to convert to us
+}
 
- float HCSR04_GetEchoDistance(HCSR04_Device device)
- {
-	 long duration = 0;
-	 float distance = -1;
-	 
-	 echoTimeStart = 0;
-	 echoTimeEnd = 0;
-	 if(trigger(device))
-	 {
-		 duration = waitForEcho(device);
-		 if(duration >= 0) distance = calculateDistance(duration);
-	 }
-	 return distance;
- }
-
- void HCSR04_ISR()
- {
-	 // Only perform the check if there's an active device
-	 if(activeDevice != HCSR04_None)
-	 {
-		 int condition = 0;
-		 // determine the high condition for the active device
-		 switch(activeDevice)
-		 {
-			 case HCSR04_L:
-				condition = PIND & HCSR04_L_Echo;
-				break;
-			 case HCSR04_C:
-				condition = PINB & HCSR04_C_Echo;
-				break;
-			 case HCSR04_R:
-				condition = PINB & HCSR04_R_Echo;
-				break;
-			default:
-				break;
-		 }
-		 
-		 // When the echo starts, track current TCNT value
-		 if(condition)
-		 {
-			 echoTimeStart = TCNT1;
-		 }
-		 // When echo ends, track the new TCNT value and indicate no device is active
-		 else
-		 {
-			 echoTimeEnd = TCNT1;
-			 activeDevice = HCSR04_None;
-		 }
-	 }
- }
+void HCSR04_ISR()
+{
+	// Only perform the check if there's an active device
+	if(activeDevice != HCSR04_None)
+	{
+		int condition = 0;
+		// determine the high condition for the active device
+		switch(activeDevice)
+		{
+			case HCSR04_L:
+			condition = PIND & HCSR04_L_Echo;
+			break;
+			case HCSR04_C:
+			condition = PINB & HCSR04_C_Echo;
+			break;
+			case HCSR04_R:
+			condition = PINB & HCSR04_R_Echo;
+			break;
+		default:
+			break;
+		}
+		
+		// When the echo starts, track current TCNT value
+		if(condition)
+		{
+			echoTimeStart = TCNT1;
+		}
+		// When echo ends, track the new TCNT value and indicate no device is active
+		else
+		{
+			echoTimeEnd = TCNT1;
+			activeDevice = HCSR04_None;
+		}
+	}
+}
 
 
 /************************************************************************/
@@ -196,10 +183,4 @@ long waitForEcho(HCSR04_Device device)
 	
 	// active device is not this device, return invalid duration
 	return -1;
-}
-
-float calculateDistance(long duration)
-{
-	float speed = 0.0343; // speed of sound in cm/us -- speed pulled from google as 343m/s in dry air at 20C on Feb 24th, 2023
-	return (duration * speed) / 2; //calculation retrieved from datasheet (see header file)
 }

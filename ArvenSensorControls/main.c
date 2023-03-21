@@ -78,21 +78,14 @@ int main(void)
 		/*switch(SEN0427_GetRangeResult(SEN0427_L))
 		{
 			case SEN0427_RangeResult__NO_ERR:
-				sprintf(buff, "distance: %i mm", SEN0427_GetSingleMeasurement(SEN0427_L));
-				SCI0_TxString(buff);
+				char distance = SEN0427_GetSingleMeasurement(SEN0427_L);
 				break;
 			default:
 				PORTC |= LED; // turn on LED
 				break;
 		}*/
-		/*if(HCSR04_CheckForObstacle(HCSR04_L, 10))
-		{
-			PORTC |= LED; // turn on LED
-		}
-		else
-		{
-			PORTC &= ~LED; // turn off LED
-		}*/
+		//long echoDurationL = HCSR04_GetEchoDuration(HCSR04_L);
+
 		// go idle!
 		sleep_cpu();
 		//example for MCP23017, toggling PORTB PIN1 high and low depending on 
@@ -107,16 +100,7 @@ int main(void)
 		if (uiAtoDEventNext - _Ticks > cuiAtoDEventCount)
 		{
 			uiAtoDEventNext += cuiAtoDEventCount; // rearm
-			//GD03_LoadState gd03Load = GD03_CheckForLoad();
-			
-			/*if(gd03Load == GD03_LoadPresent)
-			{
-				PORTC |= LED; // turn on LED
-			}
-			else
-			{
-				PORTC &= ~LED; // turn off LED
-			}*/
+			//int gd03_atod = GD03_CaptureAtoDVal();
 		}
 	}
 }
@@ -141,7 +125,7 @@ ISR (PCINT2_vect)
 	HCSR04_ISR();
 	
 	// hit something, turn on led
-	/*if(Back_Sens_ISR())
+	/*if(Back_Sens_ISR(Back_Sens_L))
 	{
 		PORTC |= LED; // turn on LED
 	}
