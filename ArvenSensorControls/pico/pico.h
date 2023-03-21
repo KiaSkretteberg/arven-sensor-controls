@@ -111,9 +111,9 @@
 
 #define PICO_BAUD_RATE 115200
 
-struct SensorValues {
-    char IR_L_Distance;         //measured in mm
-    char IR_R_Distance;         //measured in mm
+struct PicoFrame {
+    unsigned char IR_L_Distance;         //measured in mm
+    unsigned char IR_R_Distance;         //measured in mm
 
     long Ultrasonic_L_Duration; //measured in us
     long Ultrasonic_C_Duration; //measured in us
@@ -127,28 +127,28 @@ struct SensorValues {
     bool Battery_Low;           // 1 if battery low
 
     bool Motor_FL_Direction;    // 1 if forward
-    char Motor_FL_Speed;        // measured in RPM
+    unsigned char Motor_FL_Speed;        // measured in RPM
 
     bool Motor_FR_Direction;    // 1 if forward
-    char Motor_FR_Speed;        // measured in RPM
+    unsigned char Motor_FR_Speed;        // measured in RPM
 
     // bool Motor_ML_Direction;    // 1 if forward
-    // char Motor_ML_Speed;        // measured in RPM
+    // unsigned char Motor_ML_Speed;        // measured in RPM
 
     // bool Motor_MR_Direction;    // 1 if forward
-    // char Motor_MR_Speed;        // measured in RPM
+    // unsigned char Motor_MR_Speed;        // measured in RPM
 
     // bool Motor_BL_Direction;    // 1 if forward
-    // char Motor_BL_Speed;        // measured in RPM
+    // unsigned char Motor_BL_Speed;        // measured in RPM
 
     // bool Motor_BR_Direction;    // 1 if forward
-    // char Motor_BR_Speed;        // measured in RPM
+    // unsigned char Motor_BR_Speed;        // measured in RPM
 };
 
 
 // initialize the pico to run on UART
-void pico_init_communication(void);
+void Pico_InitCommunication(void);
 // Function to run to receive data. Not currently used
-void pico_receive_data(void);
+void Pico_ReceiveData(void);
 // Send a request to the pico via uart
-void pico_send_data(char * data);
+void Pico_SendData(struct PicoFrame frame);

@@ -15,7 +15,7 @@
 /* Local Definitions (private functions)                                */
 /************************************************************************/
 
-void add_data_to_frame_buffer(char * buff, long data);
+void addDataToFrameBuffer(char * buff, long data);
  
 
 /************************************************************************/
@@ -27,41 +27,41 @@ void add_data_to_frame_buffer(char * buff, long data);
 /* Header Implementation                                                */
 /************************************************************************/
 
-void pico_init_communication(void)
+void Pico_InitCommunication(void)
 {
     // 8 bits, 1 stop bit, no parity
 	SCI0_Init(F_CPU, PCIO_BAUD_RATE, 0); // no interrupts for read (TODO: Should use interrupts)
 }
 
-void pico_send_data(struct PicoFrame frame)
+void Pico_SendData(struct PicoFrame frame)
 {
     // Initialize frame buffer that will hold the bytes to be send
     char dataFrame[PICO_FRAME_LENGTH + 1] = PICO_START_BYTE;
 
     // add IR sensor data
-    add_data_to_frame_buffer(frame.IR_L_Distance);
-    add_data_to_frame_buffer(frame.IR_R_Distance);
+    addDataToFrameBuffer(frame.IR_L_Distance);
+    addDataToFrameBuffer(frame.IR_R_Distance);
 
     // add ultrasonic sensor data
-    add_data_to_frame_buffer(frame.Ultrasonic_L_Duration);
-    add_data_to_frame_buffer(frame.Ultrasonic_C_Duration);
-    add_data_to_frame_buffer(frame.Ultrasonic_R_Duration);
+    addDataToFrameBuffer(frame.Ultrasonic_L_Duration);
+    addDataToFrameBuffer(frame.Ultrasonic_C_Duration);
+    addDataToFrameBuffer(frame.Ultrasonic_R_Duration);
 
     // add bump sensor data
-    add_data_to_frame_buffer(frame.Bump_L + frame.Bump_R << 1);
+    addDataToFrameBuffer(frame.Bump_L + frame.Bump_R << 1);
 
     // add weight data
-    add_data_to_frame_buffer(frame.Weight);
+    addDataToFrameBuffer(frame.Weight);
 
     // add battery data
-    add_data_to_frame_buffer(frame.Battery_Low);
+    addDataToFrameBuffer(frame.Battery_Low);
 
     // add motor direction data 
-    add_data_to_frame_buffer(frame.Motor_FL_Direction << 5 + frame.Motor_FR_Direction << 4);
+    addDataToFrameBuffer(frame.Motor_FL_Direction << 5 + frame.Motor_FR_Direction << 4);
 
     // add motor speed data
-    add_data_to_frame_buffer(frame.Motor_FL_Speed);
-    add_data_to_frame_buffer(frame.Motor_FR_Speed);
+    addDataToFrameBuffer(frame.Motor_FL_Speed);
+    addDataToFrameBuffer(frame.Motor_FR_Speed);
 
     // add end frame byte
     dataFrame += "^";
@@ -70,7 +70,7 @@ void pico_send_data(struct PicoFrame frame)
 	SCI0_TxString(dataFrame);
 }
 
-void pico_receive_data(void)
+void Pico_ReceiveData(void)
 {
     char data;
     while(!SCI0_RxByte(&data))
@@ -79,7 +79,7 @@ void pico_receive_data(void)
     }
 }
 
-void add_data_to_frame_buffer(char * buff, long data)
+void addDataToFrameBuffer(char * buff, long data)
 {
     sprintf(*buff + strlen(*buff), "%X", data);
 }
