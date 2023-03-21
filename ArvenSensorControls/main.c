@@ -29,6 +29,9 @@
 const unsigned int _Timer_OC_Offset = 1000; // 1 / (16000000 / 8 / 1000) = 0.5ms (prescale 8) -- wanted prescale 16
 // global counter for timer ISR, used as reference to coordinate activities
 volatile unsigned int _Ticks = 0;
+// global tracker for bump sensor data
+volatile unsigned bool bump_L = 0;
+volatile unsigned bool bump_R = 0;
 
 
 /************************************************************************/
@@ -65,6 +68,8 @@ int main(void)
 	// requires ISR for PCI2 & PCI0
 	HCSR04_InitAll();
 
+	// not compatible with SCI initialization
+	Pico_InitCommunication();
 
 	// set the global interrupt flag (enable interrupts)
 	// this is backwards from the 9S12
@@ -74,34 +79,25 @@ int main(void)
 	// main program loop - don't exit
 	while(1)
 	{
-		char buff[200];
-		/*switch(SEN0427_GetRangeResult(SEN0427_L))
-		{
-			case SEN0427_RangeResult__NO_ERR:
-				char distance = SEN0427_GetSingleMeasurement(SEN0427_L);
-				break;
-			default:
-				PORTC |= LED; // turn on LED
-				break;
-		}*/
-		//long echoDurationL = HCSR04_GetEchoDuration(HCSR04_L);
+		struct PicoFrame frame;
 
 		// go idle!
 		sleep_cpu();
-		//example for MCP23017, toggling PORTB PIN1 high and low depending on 
-		//the input read from pin0
-		/*if(MCP23017_ReadPin(MCP23017_PORTB,MCP23017_BIT0_ADDR) == 1){
-			//MCP23017_Send(MCP23017_OUTPUT_HIGH,MCP23017_PORTB,MCP23017_BIT1_ADDR);
-		} else{
-			//MCP23017_Send(MCP23017_OUTPUT_LOW,MCP23017_PORTB,MCP23017_BIT1_ADDR);
-		}*/
-		//MCP23017_ReadPin(MCP23017_PORTB,MCP23017_BIT0_ADDR);
-		//// are we past the scheduled event?
-		if (uiAtoDEventNext - _Ticks > cuiAtoDEventCount)
-		{
-			uiAtoDEventNext += cuiAtoDEventCount; // rearm
-			//int gd03_atod = GD03_CaptureAtoDVal();
-		}
+
+		frame.Weight = GD03_CaptureAtoDVal();
+
+		frame.Ultrasonic_L_Duration = HCSR04_GetEchoDuration(HCSR04_L);
+		frame.Ultrasonic_C_Duration = HCSR04_GetEchoDuration(HCSR04_C);
+		frame.Ultrasonic_R_Duration = HCSR04_GetEchoDuration(HCSR04_R);
+
+		frame.IR_L_Distance = SEN0427_CaptureDistnce(SEN0427_L);
+		frame.IR_R_Distance = SEN0427_CaptureDistance(SEN0427_R);
+
+		//TODO: Set up code to retrieve battery level from GPIO
+
+		//TODO: Set up encoder data
+
+		Pico_SendData(frame);
 	}
 }
 
@@ -123,16 +119,9 @@ ISR (TIMER1_COMPA_vect)
 ISR (PCINT2_vect)
 {
 	HCSR04_ISR();
-	
-	// hit something, turn on led
-	/*if(Back_Sens_ISR(Back_Sens_L))
-	{
-		PORTC |= LED; // turn on LED
-	}
-	else
-	{
-		PORTC &= ~LED; // turn off LED
-	}*/
+
+	bump_L = Back_Sens_ISR(Back_Sens_L);
+	bump_R = Back_Sens_ISR(Back_Sens_R);
 }
 
 // ISR for PCI0, covering PCINT0 through PCINT8

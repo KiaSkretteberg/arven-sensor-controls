@@ -118,3 +118,6 @@ void SEN0427_StopContinuousMeasurement(SEN0427_Device device);
 // Should only be called manually after calling SEN0427_StartContinuousMeasurement,
 // automatically called by GetSingleMeasurement
 unsigned char SEN0427_ReadRangeMeasurement(SEN0427_Device device);
+
+// check the range result and return the distance if not an error
+unsigned char SEN0427_CaptureDistance(SEN0427_Device device);

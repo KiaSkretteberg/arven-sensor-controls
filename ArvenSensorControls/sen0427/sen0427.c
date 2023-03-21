@@ -126,6 +126,20 @@ unsigned char SEN0427_ReadRangeMeasurement(SEN0427_Device device)
     return read8bit(device, 0x062);
 }
 
+unsigned char SEN0427_CaptureDistance(SEN0427_Device device)
+{
+    unsigned char distance = 255; //default to 255, max distance, to indicate error
+
+    switch(SEN0427_GetRangeResult(device))
+    {
+        case SEN0427_RangeResult__NO_ERR:
+            distance = SEN0427_GetSingleMeasurement(device);
+            break;
+    }
+
+    return distance;
+}
+
 /************************************************************************/
 /* Local  Implementation                                                */
 /************************************************************************/

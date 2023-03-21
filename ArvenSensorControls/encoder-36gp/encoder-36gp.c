@@ -45,6 +45,17 @@ void Encoder36GP_InitMotor(Encoder36GP_Motor motor)
 }
 
 
+//TODO: Build function to read data from the pin
+		//example for MCP23017, toggling PORTB PIN1 high and low depending on 
+		//the input read from pin0
+		/*if(MCP23017_ReadPin(MCP23017_PORTB,MCP23017_BIT0_ADDR) == 1){
+			//MCP23017_Send(MCP23017_OUTPUT_HIGH,MCP23017_PORTB,MCP23017_BIT1_ADDR);
+		} else{
+			//MCP23017_Send(MCP23017_OUTPUT_LOW,MCP23017_PORTB,MCP23017_BIT1_ADDR);
+		}*/
+		//MCP23017_ReadPin(MCP23017_PORTB,MCP23017_BIT0_ADDR);
+
+
 /************************************************************************/
 /* Local  Implementation                                                */
 /************************************************************************/
