@@ -31,7 +31,9 @@ void reAddressDevice(SEN0427_Device device);
 // Initializes all SEN0427 Devices
 void SEN0427_InitAll(void)
 {
+    // TODO: Disable SEN0427_R with GPIO
     (void) SEN0427_InitDevice(SEN0427_L);
+    // TODO: Enable SEN0427_R with GPIO
     (void) SEN0427_InitDevice(SEN0427_R);
 }
 
@@ -98,18 +100,11 @@ int SEN0427_InitDevice(SEN0427_Device device)
     return 0;
 }
 
-// Checks if the sensor no longer detects ground beneath it (1 if no ground ==> drop, 0 if ground ==> no drop)
-int SEN0427_CheckForDrop(void)
-{
-	return 0;
-}
-
 SEN0427_RangeResult SEN0427_GetRangeResult(SEN0427_Device device)
 {
     // TODO: Can this return something else? Could it be a problem?
     return (SEN0427_RangeResult) read8bit(device, VL6180X_RESULT_RANGE_STATUS)>>4;
 }
-
 
 unsigned char SEN0427_GetSingleMeasurement(SEN0427_Device device)
 {
@@ -130,7 +125,6 @@ unsigned char SEN0427_ReadRangeMeasurement(SEN0427_Device device)
 {
     return read8bit(device, 0x062);
 }
-
 
 /************************************************************************/
 /* Local  Implementation                                                */

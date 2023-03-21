@@ -30,13 +30,8 @@ void HCSR04_InitAll(void);
 // Initialize the specified device with appropriate Trig as output and appropriate Echo as input
 void HCSR04_InitDevice(HCSR04_Device device);
 
-// Determine if there's an obstacle within a specified distance, of the specified device, 
-// 0 = no obstacle, 1 = obstacle
-int HCSR04_CheckForObstacle(HCSR04_Device device, float distance);
-
-// Get the current distance from the specified device, in cm, for a potential obstacle
-// if distance is greater than 400 (4m), no obstacle could be detected
-float HCSR04_GetEchoDistance(HCSR04_Device device);
+// Get the current duration of the echo'd signal from the specified device, in us
+long HCSR04_GetEchoDuration(HCSR04_Device device);
 
 // ISR for calculating the time that the echo pin is high for the active device
 void HCSR04_ISR();
