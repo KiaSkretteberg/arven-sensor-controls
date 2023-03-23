@@ -30,7 +30,7 @@ void Back_Sens_InitSens(int sens)
 	PCICR |= 0b00000100; // turn on interrupts for group 2 (12.2.4)
 }
 
-int Back_Sens_ISR(int pin)
+char Back_Sens_ISR(int pin)
 {
 	// check if this sensor was hit
 	if(PIND & pin)

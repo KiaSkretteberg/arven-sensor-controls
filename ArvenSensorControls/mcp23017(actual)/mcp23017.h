@@ -3,10 +3,10 @@
 * MCP23017 Port Expander
 *
 * Allows for up to 16 GPI/O pins to be utilized
-* via I2C. These are addressed via 2 different
+* via I2C. These are addressed via 2 different 
 * ports : PORTA & PORTB
 *
-* Datasheet:
+* Datasheet: 
 * https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf
 *
 * ********* NOTE: *************
@@ -25,8 +25,8 @@
 * Our I2C library adjusts it
 * for 7 bit addressing, so no
 * need to account for that.
-* This is assuming that A0, A1, and A2 are
-* grounded.
+* This is assuming that A0, A1, and A2 are 
+* grounded. 
 */
 #define MCP23017_Addr 0x20
 
@@ -48,15 +48,15 @@ typedef enum
 /*
 * According to the datasheet:
 * https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf#page=12
-*
+* 
 * There are two ports to control 8 pins each.
 * You can enable each I/O as an input or output (ie. the
-* PinMode enum from above) by writing to the I/O
-* configuration (IODIRA/IODIRB) bits.
+* PinMode enum from above) by writing to the I/O 
+* configuration (IODIRA/IODIRB) bits. 
 *
 * The I/O configuration bits are as follows:
 * https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf#page=16
-*
+* 
 * PORTA (IODIRA) = 0x00
 * PORTB (IODIRB) = 0x01
 */
@@ -71,7 +71,7 @@ typedef enum
 * set the bit corresponding to the pin you want to high/low
 * depending on if you want an output/input, or if
 * you want to set an output pin as high/low. This will
-* be used to set the position of the bit you want to address
+* be used to set the position of the bit you want to address 
 * within the desired port.
 */
 typedef enum
@@ -93,8 +93,8 @@ typedef enum
 */
 typedef enum
 {
-	MCP23017_OUTPUT_HIGH = 1,
-	MCP23017_OUTPUT_LOW = 0
+		MCP23017_OUTPUT_HIGH = 1,
+		MCP23017_OUTPUT_LOW = 0
 }MCP23017_OUTPUT;
 
 /*
@@ -103,9 +103,9 @@ typedef enum
 void MCP23017_Init(MCP23017_PORT port);
 
 /// @brief Returns 1 if the specified port has been initialized already
-/// @param port
+/// @param port 
 /// @return 1 or 0
-char MSCP23017_Initialized(MCP23017_PORT port);
+bool MSCP23017_Initialized(MCP23017_PORT port);
 
 /*
 * Function to send out an output (HIGH/LOW) to a desired output bit
@@ -127,7 +127,7 @@ char MCP23017_ReadPin(MCP23017_PORT port, MCP23017_BITADDR pin);
 
 /*
 * Function to set the pin mode (input or output) of a desired bit
-*
+* 
 * port = MCP23017_PORTA or MCP23017_PORTB
 * mode = MCP23017_INPUT or MCP23017_OUTPUT
 * pin = bit within PORTA/PORTB to set (0x01-0x08 in binary)

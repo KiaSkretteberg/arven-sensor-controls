@@ -18,6 +18,8 @@
 #include "hc-sr04/hc-sr04.h"
 #include "sen0427/sen0427.h"
 #include "backup-sens/backup-sens.h"
+#include "mcp23017\mcp23017.h"
+#include "pico\pico.h"
 #include <stdio.h>
 #define LED 0b00000100 // PC2, pin 25
 
@@ -30,8 +32,8 @@ const unsigned int _Timer_OC_Offset = 1000; // 1 / (16000000 / 8 / 1000) = 0.5ms
 // global counter for timer ISR, used as reference to coordinate activities
 volatile unsigned int _Ticks = 0;
 // global tracker for bump sensor data
-volatile unsigned bool bump_L = 0;
-volatile unsigned bool bump_R = 0;
+volatile char bump_L = 0;
+volatile char bump_R = 0;
 
 
 /************************************************************************/
@@ -61,8 +63,7 @@ int main(void)
 	GD03_Init();
 	SEN0427_InitDevice(SEN0427_L);
 	MCP23017_Init(MCP23017_PORTB);	
-	MCP23017_SetPin(MCP23017_INPUT, MCP23017_PORTB, MCP23017_BIT0_ADDR);
-	MCP23017_SetPin(myMode, myPort, myPin);	
+	MCP23017_SetPin(MCP23017_PinMode_INPUT, MCP23017_PORTB, MCP23017_BIT0_ADDR);
 	// requires ISR for PCI2
 	Back_Sens_InitAll();
 	// requires ISR for PCI2 & PCI0
@@ -90,7 +91,7 @@ int main(void)
 		frame.Ultrasonic_C_Duration = HCSR04_GetEchoDuration(HCSR04_C);
 		frame.Ultrasonic_R_Duration = HCSR04_GetEchoDuration(HCSR04_R);
 
-		frame.IR_L_Distance = SEN0427_CaptureDistnce(SEN0427_L);
+		frame.IR_L_Distance = SEN0427_CaptureDistance(SEN0427_L);
 		frame.IR_R_Distance = SEN0427_CaptureDistance(SEN0427_R);
 
 		//TODO: Set up code to retrieve battery level from GPIO

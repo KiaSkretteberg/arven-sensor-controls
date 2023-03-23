@@ -16,4 +16,4 @@ void Back_Sens_InitAll(void);
 void Back_Sens_InitSens(int sens);
 
 // ISR for detecting if a backup sensor was triggered, if either triggered returns 1, else 0
-int Back_Sens_ISR(int pin);
+char Back_Sens_ISR(int pin);
