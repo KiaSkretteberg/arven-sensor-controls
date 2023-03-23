@@ -191,6 +191,18 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="mcp23017\mcp23017.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mcp23017\mcp23017.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="pico\pico.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="pico\pico.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="sen0427\sen0427.c">
       <SubType>compile</SubType>
     </Compile>
@@ -204,6 +216,8 @@
     <Folder Include="encoder-36gp" />
     <Folder Include="backup-sens" />
     <Folder Include="libs" />
+    <Folder Include="mcp23017" />
+    <Folder Include="pico" />
     <Folder Include="sen0427" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
