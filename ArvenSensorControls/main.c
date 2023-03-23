@@ -63,15 +63,17 @@ int main(void)
 	GD03_Init();
 	SEN0427_InitDevice(SEN0427_L);
 	MCP23017_Init(MCP23017_PORTB);	
-	MCP23017_SetPin(MCP23017_PinMode_INPUT, MCP23017_PORTB, MCP23017_BIT0_ADDR);
+	
+	//MCP23017_SetPin(MCP23017_PinMode_INPUT, MCP23017_PORTB, MCP23017_BIT0_ADDR);
 	// requires ISR for PCI2
+	
 	Back_Sens_InitAll();
 	// requires ISR for PCI2 & PCI0
 	HCSR04_InitAll();
-
+	
 	// not compatible with SCI initialization
 	Pico_InitCommunication();
-
+	
 	// set the global interrupt flag (enable interrupts)
 	// this is backwards from the 9S12
 	sei();
@@ -81,24 +83,28 @@ int main(void)
 	while(1)
 	{
 		struct PicoFrame frame;
-
+		PORTC |= LED;
 		// go idle!
 		sleep_cpu();
-
+		_delay_ms(1000);
 		frame.Weight = GD03_CaptureAtoDVal();
-
+		
 		frame.Ultrasonic_L_Duration = HCSR04_GetEchoDuration(HCSR04_L);
-		frame.Ultrasonic_C_Duration = HCSR04_GetEchoDuration(HCSR04_C);
-		frame.Ultrasonic_R_Duration = HCSR04_GetEchoDuration(HCSR04_R);
+		
+		//frame.Ultrasonic_C_Duration = HCSR04_GetEchoDuration(HCSR04_C);
+		
+		//frame.Ultrasonic_R_Duration = HCSR04_GetEchoDuration(HCSR04_R);
 
 		frame.IR_L_Distance = SEN0427_CaptureDistance(SEN0427_L);
-		frame.IR_R_Distance = SEN0427_CaptureDistance(SEN0427_R);
-
+		
+		//frame.IR_R_Distance = SEN0427_CaptureDistance(SEN0427_R);
+		PORTC &= ~LED;
 		//TODO: Set up code to retrieve battery level from GPIO
 
 		//TODO: Set up encoder data
 
 		Pico_SendData(frame);
+		_delay_ms(500);
 	}
 }
 
