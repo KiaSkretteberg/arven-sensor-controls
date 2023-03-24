@@ -83,7 +83,7 @@ int main(void)
 	while(1)
 	{
 		struct PicoFrame frame;
-		PORTC |= LED;
+		//PORTC |= LED;
 		// go idle!
 		sleep_cpu();
 		_delay_ms(1000);
@@ -98,7 +98,7 @@ int main(void)
 		frame.IR_L_Distance = SEN0427_CaptureDistance(SEN0427_L);
 		
 		//frame.IR_R_Distance = SEN0427_CaptureDistance(SEN0427_R);
-		PORTC &= ~LED;
+		//PORTC &= ~LED;
 		//TODO: Set up code to retrieve battery level from GPIO
 
 		//TODO: Set up encoder data

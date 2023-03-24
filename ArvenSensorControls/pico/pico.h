@@ -109,7 +109,7 @@ Measured in RPMs, max possible value is 255, though it should never be above 170
 #define PICO_START_BYTE		   '$' // indicator of a start frame
 #define PICO_END_BYTE          '^' // indicator of an end frame
 
-#define PICO_BAUD_RATE 115200
+#define PICO_BAUD_RATE 56000
 
 struct PicoFrame {
     unsigned char IR_L_Distance;         //measured in mm
