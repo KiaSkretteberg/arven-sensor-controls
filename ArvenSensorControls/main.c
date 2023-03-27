@@ -90,12 +90,12 @@ int main(void)
 		frame.Weight = GD03_CaptureAtoDVal();
 		
 		frame.Ultrasonic_L_Duration = HCSR04_GetEchoDuration(HCSR04_L);
-		
+		frame.Bump_L = bump_L;
 		//frame.Ultrasonic_C_Duration = HCSR04_GetEchoDuration(HCSR04_C);
 		
 		//frame.Ultrasonic_R_Duration = HCSR04_GetEchoDuration(HCSR04_R);
 
-		frame.IR_L_Distance = SEN0427_CaptureDistance(SEN0427_L);
+		//frame.IR_L_Distance = SEN0427_CaptureDistance(SEN0427_L);
 		
 		//frame.IR_R_Distance = SEN0427_CaptureDistance(SEN0427_R);
 		//PORTC &= ~LED;
