@@ -46,20 +46,20 @@ void Pico_SendData(struct PicoFrame frame)
 	dataFrame[0] = PICO_START_BYTE;
     // add IR sensor data
     SCI0_TxString("addDataToFrameBuffer: frame.IR_L_Distance\n");
-	addDataToFrameBuffer(dataFrame, frame.IR_L_Distance, "%02X");
+	addDataToFrameBuffer(dataFrame, frame.IR_L_Distance, "%X");
 	SCI0_TxString(dataFrame);
 	SCI0_TxString("\naddDataToFrameBuffer: frame.IR_R_Distance\n");
-    addDataToFrameBuffer(dataFrame, frame.IR_R_Distance, "%02X");
+    addDataToFrameBuffer(dataFrame, frame.IR_R_Distance, "%X");
 	SCI0_TxString(dataFrame);
     // add ultrasonic sensor data
 	SCI0_TxString("\naddDataToFrameBuffer: frame.Ultrasonic_L_Duration\n");
-    addDataToFrameBuffer(dataFrame, frame.Ultrasonic_L_Duration, "%05X");
+    addDataToFrameBuffer(dataFrame, frame.Ultrasonic_L_Duration, "%X");
 	SCI0_TxString(dataFrame);
 	SCI0_TxString("\naddDataToFrameBuffer: frame.Ultrasonic_C_Duration\n");
-    addDataToFrameBuffer(dataFrame, frame.Ultrasonic_C_Duration, "%05X");
+    addDataToFrameBuffer(dataFrame, frame.Ultrasonic_C_Duration, "%X");
 	SCI0_TxString(dataFrame);
 	SCI0_TxString("\naddDataToFrameBuffer: frame.IR_R_Duration\n");
-    addDataToFrameBuffer(dataFrame, frame.Ultrasonic_R_Duration, "%05X");
+    addDataToFrameBuffer(dataFrame, frame.Ultrasonic_R_Duration, "%X");
 	SCI0_TxString(dataFrame);
 	SCI0_TxString("\naddDataToFrameBuffer: frame.Bump_L + frame.Bump_R << 1\n");
 	// add bump sensor data
@@ -67,7 +67,7 @@ void Pico_SendData(struct PicoFrame frame)
 	SCI0_TxString(dataFrame);
 	SCI0_TxString("\naddDataToFrameBuffer: frame.Weight\n");
     // add weight data
-    addDataToFrameBuffer(dataFrame, frame.Weight, "%03X");
+    addDataToFrameBuffer(dataFrame, frame.Weight, "%X");
 	SCI0_TxString(dataFrame);
 	SCI0_TxString("\naddDataToFrameBuffer: frame.Battery_Low\n");
     // add battery data
@@ -81,9 +81,13 @@ void Pico_SendData(struct PicoFrame frame)
 	SCI0_TxString("\n");
 	
     // add motor speed data
-    addDataToFrameBuffer(dataFrame, frame.Motor_FL_Speed, "%02X");
-    addDataToFrameBuffer(dataFrame, frame.Motor_FR_Speed, "%02X");
-
+	SCI0_TxString("addDataToFrameBuffer(dataFrame, frame.Motor_FL_Speed\n");
+    addDataToFrameBuffer(dataFrame, frame.Motor_FL_Speed, "%X");
+	SCI0_TxString(dataFrame);
+	SCI0_TxString("addDataToFrameBuffer(dataFrame, frame.Motor_FR_Speed\n");
+    addDataToFrameBuffer(dataFrame, frame.Motor_FR_Speed, "%X");
+	SCI0_TxString(dataFrame);
+	SCI0_TxString("\n");
     // add end frame byte
 	dataFrame[PICO_FRAME_LENGTH - 1] = PICO_END_BYTE;
 
