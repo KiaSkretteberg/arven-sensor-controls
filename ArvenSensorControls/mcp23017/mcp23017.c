@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "mcp23017.h"
+#include "sci.h"
 
 /************************************************************************/
 /* Global Variables                                                     */
@@ -29,6 +30,7 @@ char MSCP23017_Initialized(MCP23017_PORT port)
 }
 
 void MCP23017_Init(MCP23017_PORT port){
+	SCI0_TxString("mcp init\n");
 	unsigned char c;
 	char b[20];
 	I2C_Start(MCP23017_Addr, 0);
