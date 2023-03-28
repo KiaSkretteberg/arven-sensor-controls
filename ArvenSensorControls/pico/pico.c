@@ -15,8 +15,6 @@
 /************************************************************************/
 /* Local Definitions (private functions)                                */
 /************************************************************************/
-
-void addDataToFrameBuffer(char * buff, long data, char * format);
  
 
 /************************************************************************/
@@ -40,57 +38,71 @@ void Pico_InitCommunication(void)
 
 void Pico_SendData(struct PicoFrame frame)
 {
-	SCI0_TxString("Start of Pico_SendData\n");
+	char buff[6];
+	//SCI0_TxString("Start of Pico_SendData\n");
     // Initialize frame buffer that will hold the bytes to be send
-    char dataFrame[PICO_FRAME_LENGTH + 1];
-	dataFrame[0] = PICO_START_BYTE;
+    char dataFrame[PICO_FRAME_LENGTH + 3];
+	sprintf(buff, "%c", PICO_START_BYTE);
+	strcat(dataFrame, buff);	
+	sprintf(buff, "%02X", 0b00100100);
+	strcat(dataFrame, buff);	
+	//SCI0_TxString("Start Byte:\n");
+	//SCI0_TxString(dataFrame);
     // add IR sensor data
-    SCI0_TxString("addDataToFrameBuffer: frame.IR_L_Distance\n");
-	addDataToFrameBuffer(dataFrame, frame.IR_L_Distance, "%X");
-	SCI0_TxString(dataFrame);
-	SCI0_TxString("\naddDataToFrameBuffer: frame.IR_R_Distance\n");
-    addDataToFrameBuffer(dataFrame, frame.IR_R_Distance, "%X");
-	SCI0_TxString(dataFrame);
+    //SCI0_TxString("addDataToFrameBuffer: frame.IR_L_Distance\n");
+	sprintf(buff, "%02X", frame.IR_L_Distance);
+	strcat(dataFrame, buff);
+	//SCI0_TxString(dataFrame);
+	//SCI0_TxString("\naddDataToFrameBuffer: frame.IR_R_Distance\n");
+	sprintf(buff, "%02X", frame.IR_R_Distance);
+	strcat(dataFrame, buff);
+	//SCI0_TxString(dataFrame);
     // add ultrasonic sensor data
-	SCI0_TxString("\naddDataToFrameBuffer: frame.Ultrasonic_L_Duration\n");
-    addDataToFrameBuffer(dataFrame, frame.Ultrasonic_L_Duration, "%X");
-	SCI0_TxString(dataFrame);
-	SCI0_TxString("\naddDataToFrameBuffer: frame.Ultrasonic_C_Duration\n");
-    addDataToFrameBuffer(dataFrame, frame.Ultrasonic_C_Duration, "%X");
-	SCI0_TxString(dataFrame);
-	SCI0_TxString("\naddDataToFrameBuffer: frame.IR_R_Duration\n");
-    addDataToFrameBuffer(dataFrame, frame.Ultrasonic_R_Duration, "%X");
-	SCI0_TxString(dataFrame);
-	SCI0_TxString("\naddDataToFrameBuffer: frame.Bump_L + frame.Bump_R << 1\n");
+	//SCI0_TxString("\naddDataToFrameBuffer: frame.Ultrasonic_L_Duration\n");
+	sprintf(buff, "%05X", frame.Ultrasonic_L_Duration);
+	strcat(dataFrame, buff);
+	//SCI0_TxString(dataFrame);
+	//SCI0_TxString("\naddDataToFrameBuffer: frame.Ultrasonic_C_Duration\n");
+	sprintf(buff, "%05X", frame.Ultrasonic_C_Duration);
+	strcat(dataFrame, buff);
+	//SCI0_TxString(dataFrame);
+	//SCI0_TxString("\naddDataToFrameBuffer: frame.Ultrasonic_R_Duration\n");
+	sprintf(buff, "%05X", frame.Ultrasonic_R_Duration);
+	strcat(dataFrame, buff);
+	//SCI0_TxString(dataFrame);
+	//SCI0_TxString("\naddDataToFrameBuffer: frame.Bump_L + frame.Bump_R << 1\n");
 	// add bump sensor data
-    addDataToFrameBuffer(dataFrame, frame.Bump_L + (frame.Bump_R << 1), "%X");
-	SCI0_TxString(dataFrame);
-	SCI0_TxString("\naddDataToFrameBuffer: frame.Weight\n");
+	sprintf(buff, "%X", frame.Bump_L + frame.Bump_R << 1);
+	strcat(dataFrame, buff);
+	//SCI0_TxString(dataFrame);
+	//SCI0_TxString("\naddDataToFrameBuffer: frame.Weight\n");
     // add weight data
-    addDataToFrameBuffer(dataFrame, frame.Weight, "%X");
-	SCI0_TxString(dataFrame);
-	SCI0_TxString("\naddDataToFrameBuffer: frame.Battery_Low\n");
+	sprintf(buff, "%03X", frame.Weight);
+	strcat(dataFrame, buff);
+	//SCI0_TxString(dataFrame);
+	//SCI0_TxString("\naddDataToFrameBuffer: frame.Battery_Low\n");
     // add battery data
-    addDataToFrameBuffer(dataFrame, frame.Battery_Low, "%X");
-	SCI0_TxString(dataFrame);
-	SCI0_TxString("\naddDataToFrameBuffer: frame.Motor_FL_Direction << 5 + frame.Motor_FR_Direction << 4\n");
-	SCI0_TxString("\n");
+	sprintf(buff, "%X", frame.Battery_Low);
+	strcat(dataFrame, buff);
+	//SCI0_TxString(dataFrame);
+	//SCI0_TxString("\naddDataToFrameBuffer: frame.Motor_FL_Direction << 5 + frame.Motor_FR_Direction << 4\n");
+	//SCI0_TxString("\n");
 	// add motor direction data 
-    addDataToFrameBuffer(dataFrame, (frame.Motor_FL_Direction << 5) + (frame.Motor_FR_Direction << 4), "%X");
-	SCI0_TxString(dataFrame);
-	SCI0_TxString("\n");
+	sprintf(buff, "%X", frame.Motor_FL_Direction << 5 + frame.Motor_FR_Direction << 4);
+	strcat(dataFrame, buff);
+	//SCI0_TxString(dataFrame);
+	//SCI0_TxString("\n");
 	
     // add motor speed data
-	SCI0_TxString("addDataToFrameBuffer(dataFrame, frame.Motor_FL_Speed\n");
-    addDataToFrameBuffer(dataFrame, frame.Motor_FL_Speed, "%X");
-	SCI0_TxString(dataFrame);
-	SCI0_TxString("addDataToFrameBuffer(dataFrame, frame.Motor_FR_Speed\n");
-    addDataToFrameBuffer(dataFrame, frame.Motor_FR_Speed, "%X");
-	SCI0_TxString(dataFrame);
-	SCI0_TxString("\n");
-    // add end frame byte
-	dataFrame[PICO_FRAME_LENGTH - 1] = PICO_END_BYTE;
+	sprintf(buff, "%02X", frame.Motor_FL_Speed);
+	strcat(dataFrame, buff);
+	sprintf(buff, "%02X", frame.Motor_FR_Speed);
+	strcat(dataFrame, buff);
 
+    // add end frame byte
+	sprintf(buff, "%c", PICO_END_BYTE);
+	strcat(dataFrame, buff);
+	SCI0_TxString("\n");
     // send out the actual frame
 	SCI0_TxString(dataFrame);
 }
@@ -102,9 +114,4 @@ void Pico_ReceiveData(void)
     {
         //TODO: Do something?
     }
-}
-
-void addDataToFrameBuffer(char * buff, long data, char *format)
-{
-    sprintf(buff + strlen(buff), format, data);
 }

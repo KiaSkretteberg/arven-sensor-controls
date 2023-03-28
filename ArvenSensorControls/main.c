@@ -83,12 +83,12 @@ int main(void)
 	while(1)
 	{
 		struct PicoFrame frame;
-		PORTC |= LED;
+		PORTC ^= LED;
 		// go idle!
 		sleep_cpu();
-		_delay_ms(1000);
-		//frame.Weight = GD03_CaptureAtoDVal();
-		
+		//_delay_ms(1000);
+		frame.Weight = GD03_CaptureAtoDVal();
+		//PORTC &= ~LED;
 		frame.Ultrasonic_L_Duration = HCSR04_GetEchoDuration(HCSR04_L);
 		//frame.Bump_L = bump_L;
 		//frame.Ultrasonic_C_Duration = HCSR04_GetEchoDuration(HCSR04_C);
@@ -104,7 +104,7 @@ int main(void)
 		//TODO: Set up encoder data
 
 		Pico_SendData(frame);
-		_delay_ms(500);
+		_delay_ms(1000);
 	}
 }
 
