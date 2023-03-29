@@ -29,8 +29,6 @@ char MSCP23017_Initialized(MCP23017_PORT port)
 }
 
 void MCP23017_Init(MCP23017_PORT port){
-	unsigned char c;
-	char b[20];
 	I2C_Start(MCP23017_Addr, 0);
 	I2C_Write8(port, 0); //Set to register
 	I2C_Write8(0xff, 1); //Set all pins to input on the specified port
@@ -38,7 +36,6 @@ void MCP23017_Init(MCP23017_PORT port){
 
 void MCP23017_SetPin(MCP23017_PinMode mode, MCP23017_PORT port, MCP23017_BITADDR pin){
 	unsigned char c;
-	char b[20];
 	// grab the current value of the register for the specified port
 	I2C_Start(MCP23017_Addr, 0);
 	I2C_Write8(port, 0); //Set to register
@@ -61,7 +58,6 @@ void MCP23017_SetPin(MCP23017_PinMode mode, MCP23017_PORT port, MCP23017_BITADDR
 
 char MCP23017_ReadPin(MCP23017_PORT port, MCP23017_BITADDR pin){
 	unsigned char c;
-	char b[20];
 	I2C_Start(MCP23017_Addr, 0); //start I2C on the MCP address
 	//check the port chosen, the r/w
 	//address will change depending
@@ -87,8 +83,6 @@ void MCP23017_Send(MCP23017_OUTPUT output, MCP23017_PORT port, MCP23017_BITADDR 
 	//will use this to append the output
 	//we want after
 	unsigned char c;
-	//buffer for sprintf, using for debug purposes
-	char b[20];
 	//stores the port address for read/write
 	char portADDR;
 	//I2C startup routine

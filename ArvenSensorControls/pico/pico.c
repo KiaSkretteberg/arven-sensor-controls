@@ -59,20 +59,20 @@ void Pico_SendData(struct PicoFrame frame)
 	//SCI0_TxString(dataFrame);
     // add ultrasonic sensor data
 	//SCI0_TxString("\naddDataToFrameBuffer: frame.Ultrasonic_L_Duration\n");
-	sprintf(buff, "%05X", frame.Ultrasonic_L_Duration);
+	sprintf(buff, "%05lX", frame.Ultrasonic_L_Duration);
 	strcat(dataFrame, buff);
 	//SCI0_TxString(dataFrame);
 	//SCI0_TxString("\naddDataToFrameBuffer: frame.Ultrasonic_C_Duration\n");
-	sprintf(buff, "%05X", frame.Ultrasonic_C_Duration);
+	sprintf(buff, "%05lX", frame.Ultrasonic_C_Duration);
 	strcat(dataFrame, buff);
 	//SCI0_TxString(dataFrame);
 	//SCI0_TxString("\naddDataToFrameBuffer: frame.Ultrasonic_R_Duration\n");
-	sprintf(buff, "%05X", frame.Ultrasonic_R_Duration);
+	sprintf(buff, "%05lX", frame.Ultrasonic_R_Duration);
 	strcat(dataFrame, buff);
 	//SCI0_TxString(dataFrame);
 	//SCI0_TxString("\naddDataToFrameBuffer: frame.Bump_L + frame.Bump_R << 1\n");
 	// add bump sensor data
-	sprintf(buff, "%X", frame.Bump_L + frame.Bump_R << 1);
+	sprintf(buff, "%X", frame.Bump_L + (frame.Bump_R << 1));
 	strcat(dataFrame, buff);
 	//SCI0_TxString(dataFrame);
 	//SCI0_TxString("\naddDataToFrameBuffer: frame.Weight\n");
@@ -88,7 +88,7 @@ void Pico_SendData(struct PicoFrame frame)
 	//SCI0_TxString("\naddDataToFrameBuffer: frame.Motor_FL_Direction << 5 + frame.Motor_FR_Direction << 4\n");
 	//SCI0_TxString("\n");
 	// add motor direction data 
-	sprintf(buff, "%X", frame.Motor_FL_Direction << 5 + frame.Motor_FR_Direction << 4);
+	sprintf(buff, "%02X", (frame.Motor_FL_Direction << 5) + (frame.Motor_FR_Direction << 4));
 	strcat(dataFrame, buff);
 	//SCI0_TxString(dataFrame);
 	//SCI0_TxString("\n");
@@ -102,7 +102,7 @@ void Pico_SendData(struct PicoFrame frame)
     // add end frame byte
 	sprintf(buff, "%c", PICO_END_BYTE);
 	strcat(dataFrame, buff);
-	SCI0_TxString("\n");
+	//SCI0_TxString("\n");
     // send out the actual frame
 	SCI0_TxString(dataFrame);
 }

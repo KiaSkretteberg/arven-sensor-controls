@@ -88,15 +88,17 @@ long HCSR04_GetEchoDuration(HCSR04_Device device)
 
 void HCSR04_ISR()
 {
+	
 	// Only perform the check if there's an active device
 	if(activeDevice != HCSR04_None)
 	{
+		PORTC ^= 0b00000100;
 		int condition = 0;
 		// determine the high condition for the active device
 		switch(activeDevice)
 		{
 			case HCSR04_L:
-			condition = PIND & HCSR04_L_Echo;
+			condition = PIND & HCSR04_L_Echo;			
 			break;
 			case HCSR04_C:
 			condition = PINB & HCSR04_C_Echo;
@@ -172,12 +174,13 @@ int trigger(HCSR04_Device device)
 
 long waitForEcho(HCSR04_Device device)
 {
+	//DDRC |= 0b00000100;
 	// ensure this is the active device before waiting for echo
 	if(activeDevice == device)
 	{
 		// wait for the device to no longer be active, meaning the echo finished
 		while(activeDevice == device);
-		
+		//PORTC ^= 0b00000100;
 		return (echoTimeEnd - echoTimeStart)/2; // actual value is in 0.5us, so need to divide by 2 to get 1us units
 	}
 	
