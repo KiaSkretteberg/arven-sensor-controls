@@ -43,8 +43,8 @@ volatile char bump_R = 0;
 int main(void)
 {
 	// variable for managing the A/D update
-	const unsigned int cuiAtoDEventCount = 1000; // every 1/2 second
-	unsigned int uiAtoDEventNext = cuiAtoDEventCount;
+	const unsigned int timerEventCount = 100; // every 1/2 second
+	unsigned int timerEventNext = timerEventCount;
 	// make portc2 (pin 25) an output (PC2)
 	DDRC |= LED;
 	// one-time initialization section
@@ -77,34 +77,46 @@ int main(void)
 	// set the global interrupt flag (enable interrupts)
 	// this is backwards from the 9S12
 	sei();
-
+		struct PicoFrame frame;
+		frame.Bump_R = 0;
+		frame.Bump_L = 0;
+		frame.Ultrasonic_C_Duration = 0;
+		frame.Ultrasonic_R_Duration = 0;
+		frame.IR_L_Distance = 0;
+		frame.IR_R_Distance = 0;
+		frame.Motor_FL_Direction = 0;
+		frame.Motor_FR_Direction = 0;
+		frame.Motor_FL_Speed = 0;
+		frame.Motor_FR_Speed = 0;
+		frame.Battery_Low = 0;
+		frame.Weight = 0;
+		frame.Ultrasonic_L_Duration = 0;	
 
 	// main program loop - don't exit
 	while(1)
 	{
-		struct PicoFrame frame;
-		PORTC ^= LED;
-		// go idle!
 		sleep_cpu();
-		//_delay_ms(1000);
-		frame.Weight = GD03_CaptureAtoDVal();
-		//PORTC &= ~LED;
-		frame.Ultrasonic_L_Duration = HCSR04_GetEchoDuration(HCSR04_L);
-		//frame.Bump_L = bump_L;
-		//frame.Ultrasonic_C_Duration = HCSR04_GetEchoDuration(HCSR04_C);
-		
-		//frame.Ultrasonic_R_Duration = HCSR04_GetEchoDuration(HCSR04_R);
 
-		//frame.IR_L_Distance = SEN0427_CaptureDistance(SEN0427_L);
-		
-		//frame.IR_R_Distance = SEN0427_CaptureDistance(SEN0427_R);
-		//PORTC &= ~LED;
-		//TODO: Set up code to retrieve battery level from GPIO
+		//PORTC ^= LED;
+		// go idle!
+		if(timerEventNext - _Ticks > timerEventCount){
+			//frame.Weight = GD03_CaptureAtoDVal();
+			//PORTC &= ~LED;
+			frame.Ultrasonic_L_Duration = HCSR04_GetEchoDuration(HCSR04_L);
+			//frame.Bump_L = bump_L;
+			//frame.Ultrasonic_C_Duration = HCSR04_GetEchoDuration(HCSR04_C);
+			//
+			//frame.Ultrasonic_R_Duration = HCSR04_GetEchoDuration(HCSR04_R);
+			//
+			//frame.IR_L_Distance = SEN0427_CaptureDistance(SEN0427_L);
+			//
+			//frame.IR_R_Distance = SEN0427_CaptureDistance(SEN0427_R);
+			//PORTC &= ~LED;
+			//TODO: Set up code to retrieve battery level from GPIO
 
-		//TODO: Set up encoder data
-
-		Pico_SendData(frame);
-		_delay_ms(1000);
+			//TODO: Set up encoder data			
+		}
+		Pico_SendData(frame);	
 	}
 }
 

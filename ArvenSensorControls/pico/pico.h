@@ -11,7 +11,7 @@ $FFFFF1FFFF1FFFF1FFFFA3FF1FFFFF^
 
 The above is broken up into 16 segments varying in the number of (string) bytes that represent them.
 
-Segment 1: (1 byte)
+Segment 1: (2 bytes)
 Indication of which of the 8 sensors have changed.
 The values that are indicated as being modified are the next 7 segments (segment 9 is excluded since it is just a battery indicator)
 
@@ -69,7 +69,7 @@ A raw AtoD value, from a 10 bit ADC, representing the voltage measured between 0
 Segment 9: (1 or 3 bytes)
 Battery level (if 1 byte, is 0/1; if 3 bytes, is an AtoD value similar to segment 8)
 
-Segment 10: (1 byte)
+Segment 10: (2 bytes)
 Direction of Motors (from encoders)
 Each motor is represented by a single bit of 0 or 1 indicated below,
 where 1 indicates forward, 0 is backwards
@@ -105,7 +105,7 @@ Speed of Back Left Motor (from encoders)
 Measured in RPMs, max possible value is 255, though it should never be above 170
 */
 
-#define PICO_FRAME_LENGTH      31  // not inclusive of start/end bytes
+#define PICO_FRAME_LENGTH      32  // not inclusive of start/end bytes
 #define PICO_START_BYTE		   '$' // indicator of a start frame
 #define PICO_END_BYTE          '^' // indicator of an end frame
 
