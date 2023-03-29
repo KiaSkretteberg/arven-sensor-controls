@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "mcp23017.h"
+#include "sci.h"
 
 /************************************************************************/
 /* Global Variables                                                     */
