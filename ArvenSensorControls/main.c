@@ -29,6 +29,7 @@
 
 // constant for timer output compare offset, init and ISR rearm
 const unsigned int _Timer_OC_Offset = 1000; // 1 / (16000000 / 8 / 1000) = 0.5ms (prescale 8) -- wanted prescale 16
+const unsigned int timerEventCount = 2000; // every 100 ms
 // global counter for timer ISR, used as reference to coordinate activities
 volatile unsigned int _Ticks = 0;
 // global tracker for bump sensor data
@@ -41,10 +42,7 @@ volatile char bump_R = 0;
 /************************************************************************/
 
 int main(void)
-{
-	// variable for managing the A/D update
-	const unsigned int timerEventCount = 100; // every 1/2 second
-	unsigned int timerEventNext = timerEventCount;
+{	
 	// make portc2 (pin 25) an output (PC2)
 	DDRC |= LED;
 	// one-time initialization section
@@ -54,24 +52,22 @@ int main(void)
 	sleep_enable();
 	// bring up the I2C bus, at 400kHz operation
 	I2C_Init(F_CPU, I2CBus400);
-
-	// Cannot be used while pico is initialized
-	//SCI0_Init(F_CPU, 9600, 1); // 16Mhz clock, 9600 baud
-	// welcome message, so we know it booted OK
-	//SCI0_TxString("\n328 Up! Characters will echo.\n");
-
+	//// Cannot be used while pico is initialized
+	////SCI0_Init(F_CPU, 9600, 1); // 16Mhz clock, 9600 baud
+	//// welcome message, so we know it booted OK
+	////SCI0_TxString("\n328 Up! Characters will echo.\n");
 	GD03_Init();
 	SEN0427_InitDevice(SEN0427_L);
 	MCP23017_Init(MCP23017_PORTB);	
-	
-	//MCP23017_SetPin(MCP23017_PinMode_INPUT, MCP23017_PORTB, MCP23017_BIT0_ADDR);
-	// requires ISR for PCI2
-	
+	//
+	////MCP23017_SetPin(MCP23017_PinMode_INPUT, MCP23017_PORTB, MCP23017_BIT0_ADDR);
+	//// requires ISR for PCI2
+	//
 	Back_Sens_InitAll();
-	// requires ISR for PCI2 & PCI0
+	//// requires ISR for PCI2 & PCI0
 	HCSR04_InitAll();
-	
-	// not compatible with SCI initialization
+	//
+	//// not compatible with SCI initialization
 	Pico_InitCommunication();
 	
 	// set the global interrupt flag (enable interrupts)
@@ -82,6 +78,7 @@ int main(void)
 		frame.Bump_L = 0;
 		frame.Ultrasonic_C_Duration = 0;
 		frame.Ultrasonic_R_Duration = 0;
+		frame.Ultrasonic_L_Duration = 0;	
 		frame.IR_L_Distance = 0;
 		frame.IR_R_Distance = 0;
 		frame.Motor_FL_Direction = 0;
@@ -90,8 +87,6 @@ int main(void)
 		frame.Motor_FR_Speed = 0;
 		frame.Battery_Low = 0;
 		frame.Weight = 0;
-		frame.Ultrasonic_L_Duration = 0;	
-
 	// main program loop - don't exit
 	while(1)
 	{
@@ -99,9 +94,11 @@ int main(void)
 
 		//PORTC ^= LED;
 		// go idle!
-		if(timerEventNext - _Ticks > timerEventCount){
+		if(_Ticks > timerEventCount){
+			_Ticks = 0;
+			PORTC ^= LED;
 			//frame.Weight = GD03_CaptureAtoDVal();
-			//PORTC &= ~LED;
+			//PORTC &= ~LED;		
 			frame.Ultrasonic_L_Duration = HCSR04_GetEchoDuration(HCSR04_L);
 			//frame.Bump_L = bump_L;
 			//frame.Ultrasonic_C_Duration = HCSR04_GetEchoDuration(HCSR04_C);
@@ -114,9 +111,10 @@ int main(void)
 			//PORTC &= ~LED;
 			//TODO: Set up code to retrieve battery level from GPIO
 
-			//TODO: Set up encoder data			
+			//TODO: Set up encoder data	
+			Pico_SendData(frame);						
 		}
-		Pico_SendData(frame);	
+		
 	}
 }
 
@@ -129,7 +127,7 @@ ISR (TIMER1_COMPA_vect)
 {
 	// rearm the output compare operation
 	OCR1A += _Timer_OC_Offset; // 1ms intervals
-
+	
 	// up the global tick count
 	++_Ticks;
 }
