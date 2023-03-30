@@ -9,6 +9,7 @@
  #include <stdio.h>
  #include <util/delay.h> // have to add, has delay implementation (requires F_CPU to be defined)
  #include "hc-sr04.h"
+#include "sci.h"
  
 /************************************************************************/
 /* Local Definitions (private functions)                                */
@@ -174,13 +175,26 @@ int trigger(HCSR04_Device device)
 
 long waitForEcho(HCSR04_Device device)
 {
+	char buff[20];
+	long diff;
 	//DDRC |= 0b00000100;
 	// ensure this is the active device before waiting for echo
 	if(activeDevice == device)
 	{
 		// wait for the device to no longer be active, meaning the echo finished
 		while(activeDevice == device);
+		if(echoTimeEnd >= echoTimeStart){
+			diff = echoTimeEnd - echoTimeStart;
+		} else{
+			
+		}
 		//PORTC ^= 0b00000100;
+		sprintf(buff, "\n%li", echoTimeEnd);
+		SCI0_TxString(buff);
+		sprintf(buff, "\n%li", echoTimeStart);
+		SCI0_TxString(buff);
+		sprintf(buff, "\n%li", echoTimeEnd - echoTimeStart);
+		SCI0_TxString(buff);
 		return (echoTimeEnd - echoTimeStart)/2; // actual value is in 0.5us, so need to divide by 2 to get 1us units
 	}
 	

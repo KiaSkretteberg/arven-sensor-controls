@@ -105,7 +105,7 @@ Speed of Back Left Motor (from encoders)
 Measured in RPMs, max possible value is 255, though it should never be above 170
 */
 
-#define PICO_FRAME_LENGTH      32  // not inclusive of start/end bytes
+#define PICO_FRAME_LENGTH      31  // not inclusive of start/end bytes
 #define PICO_START_BYTE		   '$' // indicator of a start frame
 #define PICO_END_BYTE          '^' // indicator of an end frame
 

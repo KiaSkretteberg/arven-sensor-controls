@@ -15,7 +15,7 @@
 /************************************************************************/
 /* Local Definitions (private functions)                                */
 /************************************************************************/
- 
+ char ParseBumpVal(char bump_L,char bump_R);
 
 /************************************************************************/
 /* Global Variables                                                     */
@@ -33,7 +33,6 @@ void Pico_InitCommunication(void)
 		PORTC |= 0b00000100;
 	}
     // 8 bits, 1 stop bit, no parity
-	 
 }
 
 void Pico_SendData(struct PicoFrame frame)
@@ -42,6 +41,7 @@ void Pico_SendData(struct PicoFrame frame)
 	//SCI0_TxString("Start of Pico_SendData\n");
     // Initialize frame buffer that will hold the bytes to be send
     char dataFrame[PICO_FRAME_LENGTH + 3];
+	strcpy(dataFrame, "");
 	sprintf(buff, "%c", PICO_START_BYTE);
 	strcat(dataFrame, buff);	
 	sprintf(buff, "%02X", 0b00100100);
@@ -72,7 +72,7 @@ void Pico_SendData(struct PicoFrame frame)
 	//SCI0_TxString(dataFrame);
 	//SCI0_TxString("\naddDataToFrameBuffer: frame.Bump_L + frame.Bump_R << 1\n");
 	// add bump sensor data
-	sprintf(buff, "%X", frame.Bump_L + (frame.Bump_R << 1));
+	sprintf(buff, "%c", ParseBumpVal(frame.Bump_L, frame.Bump_R));
 	strcat(dataFrame, buff);
 	//SCI0_TxString(dataFrame);
 	//SCI0_TxString("\naddDataToFrameBuffer: frame.Weight\n");
@@ -82,7 +82,7 @@ void Pico_SendData(struct PicoFrame frame)
 	//SCI0_TxString(dataFrame);
 	//SCI0_TxString("\naddDataToFrameBuffer: frame.Battery_Low\n");
     // add battery data
-	sprintf(buff, "%X", frame.Battery_Low);
+	sprintf(buff, "%c", frame.Battery_Low ? 1 : 0);
 	strcat(dataFrame, buff);
 	//SCI0_TxString(dataFrame);
 	//SCI0_TxString("\naddDataToFrameBuffer: frame.Motor_FL_Direction << 5 + frame.Motor_FR_Direction << 4\n");
@@ -91,20 +91,18 @@ void Pico_SendData(struct PicoFrame frame)
 	sprintf(buff, "%02X", (frame.Motor_FL_Direction << 5) + (frame.Motor_FR_Direction << 4));
 	strcat(dataFrame, buff);
 	//SCI0_TxString(dataFrame);
-	//SCI0_TxString("\n");
-	
+	//SCI0_TxString("\n");	
     // add motor speed data
 	sprintf(buff, "%02X", frame.Motor_FL_Speed);
 	strcat(dataFrame, buff);
 	sprintf(buff, "%02X", frame.Motor_FR_Speed);
 	strcat(dataFrame, buff);
-
     // add end frame byte
 	sprintf(buff, "%c", PICO_END_BYTE);
-	strcat(dataFrame, buff);
-	//SCI0_TxString("\n");
+	strcat(dataFrame, buff);	
     // send out the actual frame
 	SCI0_TxString(dataFrame);
+	SCI0_TxString("\n");
 }
 
 void Pico_ReceiveData(void)
@@ -115,3 +113,33 @@ void Pico_ReceiveData(void)
         //TODO: Do something?
     }
 }
+
+/*
+* Function to read the bump_L and bump_R
+* frame values, and translating them into
+* the corresponding char as below:
+*
+* ------------------------------------------
+* |    Hex Value    |    b1    |     b0    |
+* ------------------------------------------
+* |        A        |    1     |     0     |
+* ------------------------------------------
+* |        B        |    1     |     1     |
+* ------------------------------------------
+* |        C        |    0     |     0     |
+* ------------------------------------------
+* |        D        |    0     |     1     |
+* ------------------------------------------
+*/
+ char ParseBumpVal(char bump_L,char bump_R){
+	 if(bump_L && !bump_R){
+		return 'A';
+	 }else if(bump_L && bump_R){
+		return 'B';
+	 }else if(!bump_L && !bump_R){
+		 return 'C';
+	 }
+	 else{
+		 return 'D';
+	 }
+ }
