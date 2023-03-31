@@ -183,19 +183,19 @@ long waitForEcho(HCSR04_Device device)
 	{
 		// wait for the device to no longer be active, meaning the echo finished
 		while(activeDevice == device);
-		if(echoTimeEnd >= echoTimeStart){
+		if( echoTimeEnd >= echoTimeStart){
 			diff = echoTimeEnd - echoTimeStart;
 		} else{
-			
+			diff = 65535 - echoTimeStart + echoTimeEnd;
 		}
 		//PORTC ^= 0b00000100;
 		sprintf(buff, "\n%li", echoTimeEnd);
 		SCI0_TxString(buff);
 		sprintf(buff, "\n%li", echoTimeStart);
 		SCI0_TxString(buff);
-		sprintf(buff, "\n%li", echoTimeEnd - echoTimeStart);
+		sprintf(buff, "\n%li", diff);
 		SCI0_TxString(buff);
-		return (echoTimeEnd - echoTimeStart)/2; // actual value is in 0.5us, so need to divide by 2 to get 1us units
+		return (diff)/2; // actual value is in 0.5us, so need to divide by 2 to get 1us units
 	}
 	
 	// active device is not this device, return invalid duration
