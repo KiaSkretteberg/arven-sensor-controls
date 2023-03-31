@@ -51,14 +51,14 @@ int main(void)
 	// enable sleep mode, for idle, sort of similar to WAI on 9S12X (13.2)
 	sleep_enable();
 	// bring up the I2C bus, at 400kHz operation
-	I2C_Init(F_CPU, I2CBus400);
+	//I2C_Init(F_CPU, I2CBus400);
 	//// Cannot be used while pico is initialized
 	////SCI0_Init(F_CPU, 9600, 1); // 16Mhz clock, 9600 baud
 	//// welcome message, so we know it booted OK
 	////SCI0_TxString("\n328 Up! Characters will echo.\n");
 	GD03_Init();
-	SEN0427_InitDevice(SEN0427_L);
-	MCP23017_Init(MCP23017_PORTB);	
+	//SEN0427_InitDevice(SEN0427_L);
+	//MCP23017_Init(MCP23017_PORTB);	
 	//
 	////MCP23017_SetPin(MCP23017_PinMode_INPUT, MCP23017_PORTB, MCP23017_BIT0_ADDR);
 	//// requires ISR for PCI2
