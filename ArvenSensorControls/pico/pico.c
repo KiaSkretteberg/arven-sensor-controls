@@ -15,7 +15,25 @@
 /************************************************************************/
 /* Local Definitions (private functions)                                */
 /************************************************************************/
- char ParseBumpVal(char bump_L,char bump_R);
+
+/*
+* Function to read the bump_L and bump_R
+* frame values, and translating them into
+* the corresponding char as below:
+*
+* ------------------------------------------
+* |    Hex Value    |    b1    |     b0    |
+* ------------------------------------------
+* |        A        |    1     |     0     |
+* ------------------------------------------
+* |        B        |    1     |     1     |
+* ------------------------------------------
+* |        C        |    0     |     0     |
+* ------------------------------------------
+* |        D        |    0     |     1     |
+* ------------------------------------------
+*/
+char parseBumpVal(char bump_L,char bump_R);
 
 /************************************************************************/
 /* Global Variables                                                     */
@@ -37,61 +55,42 @@ void Pico_InitCommunication(void)
 
 void Pico_SendData(struct PicoFrame frame)
 {
+	// Temporary buffer for holding a single value to be added to the frame
 	char buff[6];
-	//SCI0_TxString("Start of Pico_SendData\n");
     // Initialize frame buffer that will hold the bytes to be send
     char dataFrame[PICO_FRAME_LENGTH + 3];
+	// ensure the frame is empty
 	strcpy(dataFrame, "");
+	// Add the start byte
 	sprintf(buff, "%c", PICO_START_BYTE);
 	strcat(dataFrame, buff);	
+	// Add the byte indicating what data has changes (TODO: Figure out how to set this)
 	sprintf(buff, "%02X", 0b00100100);
 	strcat(dataFrame, buff);	
-	//SCI0_TxString("Start Byte:\n");
-	//SCI0_TxString(dataFrame);
     // add IR sensor data
-    //SCI0_TxString("addDataToFrameBuffer: frame.IR_L_Distance\n");
 	sprintf(buff, "%02X", frame.IR_L_Distance);
 	strcat(dataFrame, buff);
-	//SCI0_TxString(dataFrame);
-	//SCI0_TxString("\naddDataToFrameBuffer: frame.IR_R_Distance\n");
 	sprintf(buff, "%02X", frame.IR_R_Distance);
 	strcat(dataFrame, buff);
-	//SCI0_TxString(dataFrame);
     // add ultrasonic sensor data
-	//SCI0_TxString("\naddDataToFrameBuffer: frame.Ultrasonic_L_Duration\n");
 	sprintf(buff, "%05lX", frame.Ultrasonic_L_Duration);
 	strcat(dataFrame, buff);
-	//SCI0_TxString(dataFrame);
-	//SCI0_TxString("\naddDataToFrameBuffer: frame.Ultrasonic_C_Duration\n");
 	sprintf(buff, "%05lX", frame.Ultrasonic_C_Duration);
 	strcat(dataFrame, buff);
-	//SCI0_TxString(dataFrame);
-	//SCI0_TxString("\naddDataToFrameBuffer: frame.Ultrasonic_R_Duration\n");
 	sprintf(buff, "%05lX", frame.Ultrasonic_R_Duration);
 	strcat(dataFrame, buff);
-	//SCI0_TxString(dataFrame);
-	//SCI0_TxString("\naddDataToFrameBuffer: frame.Bump_L + frame.Bump_R << 1\n");
 	// add bump sensor data
-	sprintf(buff, "%c", ParseBumpVal(frame.Bump_L, frame.Bump_R));
+	sprintf(buff, "%c", parseBumpVal(frame.Bump_L, frame.Bump_R));
 	strcat(dataFrame, buff);
-	//SCI0_TxString(dataFrame);
-	//SCI0_TxString("\naddDataToFrameBuffer: frame.Weight\n");
     // add weight data
 	sprintf(buff, "%03X", frame.Weight);
 	strcat(dataFrame, buff);
-	//SCI0_TxString(dataFrame);
-	//SCI0_TxString("\naddDataToFrameBuffer: frame.Battery_Low\n");
     // add battery data
 	sprintf(buff, "%c", frame.Battery_Low ? 1 : 0);
 	strcat(dataFrame, buff);
-	//SCI0_TxString(dataFrame);
-	//SCI0_TxString("\naddDataToFrameBuffer: frame.Motor_FL_Direction << 5 + frame.Motor_FR_Direction << 4\n");
-	//SCI0_TxString("\n");
 	// add motor direction data 
 	sprintf(buff, "%02X", (frame.Motor_FL_Direction << 5) + (frame.Motor_FR_Direction << 4));
 	strcat(dataFrame, buff);
-	//SCI0_TxString(dataFrame);
-	//SCI0_TxString("\n");	
     // add motor speed data
 	sprintf(buff, "%02X", frame.Motor_FL_Speed);
 	strcat(dataFrame, buff);
@@ -102,6 +101,7 @@ void Pico_SendData(struct PicoFrame frame)
 	strcat(dataFrame, buff);	
     // send out the actual frame
 	SCI0_TxString(dataFrame);
+	// send a new line for easier readability, the pico will ignore it
 	SCI0_TxString("\n");
 }
 
@@ -114,32 +114,22 @@ void Pico_ReceiveData(void)
     }
 }
 
-/*
-* Function to read the bump_L and bump_R
-* frame values, and translating them into
-* the corresponding char as below:
-*
-* ------------------------------------------
-* |    Hex Value    |    b1    |     b0    |
-* ------------------------------------------
-* |        A        |    1     |     0     |
-* ------------------------------------------
-* |        B        |    1     |     1     |
-* ------------------------------------------
-* |        C        |    0     |     0     |
-* ------------------------------------------
-* |        D        |    0     |     1     |
-* ------------------------------------------
-*/
- char ParseBumpVal(char bump_L,char bump_R){
-	 if(bump_L && !bump_R){
+char parseBumpVal(char bump_L,char bump_R)
+{
+	if(bump_L && !bump_R)
+	{
 		return 'A';
-	 }else if(bump_L && bump_R){
+	}
+	else if(bump_L && bump_R)
+	{
 		return 'B';
-	 }else if(!bump_L && !bump_R){
-		 return 'C';
-	 }
-	 else{
-		 return 'D';
-	 }
- }
+	}
+	else if(!bump_L && !bump_R)
+	{
+		return 'C';
+	}
+	else //!bump_L, bumpR -- only option left
+	{
+		return 'D';
+	}
+}
