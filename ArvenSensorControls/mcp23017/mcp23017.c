@@ -29,13 +29,15 @@ char MSCP23017_Initialized(MCP23017_PORT port)
 	return port == MCP23017_PORTA ? portA_initialized : portB_initialized;
 }
 
-void MCP23017_Init(MCP23017_PORT port){
+void MCP23017_Init(MCP23017_PORT port)
+{
 	I2C_Start(MCP23017_Addr, 0);
 	I2C_Write8(port, 0); //Set to register
 	I2C_Write8(0xff, 1); //Set all pins to input on the specified port
 }
 
-void MCP23017_SetPin(MCP23017_PinMode mode, MCP23017_PORT port, MCP23017_BITADDR pin){
+void MCP23017_SetPin(MCP23017_PinMode mode, MCP23017_PORT port, MCP23017_BITADDR pin)
+{
 	unsigned char c;
 	// grab the current value of the register for the specified port
 	I2C_Start(MCP23017_Addr, 0);
@@ -57,7 +59,16 @@ void MCP23017_SetPin(MCP23017_PinMode mode, MCP23017_PORT port, MCP23017_BITADDR
 	I2C_Write8(c, 1); //Set input/output to specified pin
 }
 
-char MCP23017_ReadPin(MCP23017_PORT port, MCP23017_BITADDR pin){
+char MCP23017_ReadPin(MCP23017_PORT port, MCP23017_BITADDR pin)
+{
+	unsigned char c = MCP23017_ReadPort(port);
+	c &= pin;
+	return c;
+}
+
+// TODO: Can we use interrupts? We made the pin no contact but maybe we can solder something on?
+char MCP23017_ReadPort(MCP23017_PORT port)
+{
 	unsigned char c;
 	I2C_Start(MCP23017_Addr, 0); //start I2C on the MCP address
 	//check the port chosen, the r/w
@@ -74,12 +85,11 @@ char MCP23017_ReadPin(MCP23017_PORT port, MCP23017_BITADDR pin){
 	}
 	I2C_Start(MCP23017_Addr, 1); //start I2C, with read
 	I2C_Read8(&c, I2C_NACK, 1); //store the read byte into c, no ack
-	//&= to get what the bit is set to at the specified pin
-	c &= pin;
 	return c;
 }
 
-void MCP23017_Send(MCP23017_OUTPUT output, MCP23017_PORT port, MCP23017_BITADDR pin){
+void MCP23017_Send(MCP23017_OUTPUT output, MCP23017_PORT port, MCP23017_BITADDR pin)
+{
 	//value after addressing the port
 	//will use this to append the output
 	//we want after
