@@ -125,6 +125,8 @@ void MCP23017_Send(MCP23017_OUTPUT output, MCP23017_PORT port, MCP23017_BITADDR 
 */
 char MCP23017_ReadPin(MCP23017_PORT port, MCP23017_BITADDR pin);
 
+char MCP23017_ReadPort(MCP23017_PORT port);
+
 /*
 * Function to set the pin mode (input or output) of a desired bit
 *
