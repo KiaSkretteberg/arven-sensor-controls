@@ -18,10 +18,13 @@ typedef enum
 	// Encoder36GP_BR = 1  // back right wheel
 } Encoder36GP_Motor;
 
+
 // Initialize all Encoders for all 36GP-555-27-EN
 void Encoder36GP_InitAll(void);
 
 // Initialize encoders for specific motor
 void Encoder36GP_InitMotor(Encoder36GP_Motor motor);
 
+unsigned char Encoder36GP_CheckDirection(Encoder36GP_Motor motor);
 
+unsigned long Encoder36GP_CheckSpeed(Encoder36GP_Motor motor);

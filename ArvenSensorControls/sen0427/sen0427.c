@@ -4,9 +4,10 @@
  * Created: 2023-02-25
  * Author: Kia Skretteberg & Nubal Manhas
  */
- #include <avr/io.h>
- #include "i2c.h"
- #include "sen0427.h"
+#include <avr/io.h>
+#include "i2c.h"
+#include "sen0427.h"
+#include "../mcp23017/mcp23017.h"
 
 /************************************************************************/
 /* Local Definitions (private functions)                                */
@@ -31,9 +32,19 @@ void reAddressDevice(SEN0427_Device device);
 // Initializes all SEN0427 Devices
 void SEN0427_InitAll(void)
 {
-    // TODO: Disable SEN0427_R with GPIO
+    if(!MSCP23017_Initialized(MCP23017_PORTA))
+    {
+        MCP23017_Init(MCP23017_PORTA);
+    }
+    // enable pin 25 as an output
+    MCP23017_SetPin(MCP23017_PinMode_OUTPUT, MCP23017_PORTA, MCP23017_BIT4_ADDR);
+    // set the pin low to disable SEN0427_R
+    MCP23017_Send(MCP23017_OUTPUT_LOW, MCP23017_PORTA, MCP23017_BIT4_ADDR);
+    // initialize the left sensor
     (void) SEN0427_InitDevice(SEN0427_L);
-    // TODO: Enable SEN0427_R with GPIO
+    // set the pin high to enable SEN0427_R
+    MCP23017_Send(MCP23017_OUTPUT_HIGH, MCP23017_PORTA, MCP23017_BIT4_ADDR);
+    // initialize the right sensor
     (void) SEN0427_InitDevice(SEN0427_R);
 }
 
@@ -135,6 +146,9 @@ unsigned char SEN0427_CaptureDistance(SEN0427_Device device)
         case SEN0427_RangeResult__NO_ERR:
             distance = SEN0427_GetSingleMeasurement(device);
             break;
+		default:
+			// DO NOTHING FOR ERRORS
+			break;
     }
 
     return distance;
@@ -150,7 +164,7 @@ void reAddressDevice(SEN0427_Device device)
 	I2C_Start(SEN0427_Addr, I2C_WRITE);
 	// tell it which address to write
 	I2C_Write8(0x212>>8, I2C_NOSTOP);
-	I2C_Write8(0x212, I2C_NOSTOP); // implicitly truncated, but that's okay
+	I2C_Write8(0x212&0xFF, I2C_NOSTOP);
 	// write the data, and we're done
 	I2C_Write8(deviceAddr, I2C_STOP);
 }
