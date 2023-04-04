@@ -4,11 +4,11 @@
  * Created: 2023-02-24
  * Author: Kia Skretteberg
  */
- #define F_CPU 16E6 // with external xtal enabled, and clock div/8, bus == 2MHz
- #include <avr/io.h>
- #include <stdio.h>
- #include <util/delay.h> // have to add, has delay implementation (requires F_CPU to be defined)
- #include "hc-sr04.h"
+#define F_CPU 16E6 // with external xtal enabled, and clock div/8, bus == 2MHz
+#include <avr/io.h>
+#include <stdio.h>
+#include <util/delay.h> // have to add, has delay implementation (requires F_CPU to be defined)
+#include "hc-sr04.h"
 #include "sci.h"
  
 /************************************************************************/
