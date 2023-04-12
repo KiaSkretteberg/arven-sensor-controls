@@ -190,11 +190,11 @@ long waitForEcho(HCSR04_Device device)
 		}
 		//PORTC ^= 0b00000100;
 		sprintf(buff, "\n%li", echoTimeEnd);
-		SCI0_TxString(buff);
+		//SCI0_TxString(buff);
 		sprintf(buff, "\n%li", echoTimeStart);
-		SCI0_TxString(buff);
+		//SCI0_TxString(buff);
 		sprintf(buff, "\n%li", diff);
-		SCI0_TxString(buff);
+		//SCI0_TxString(buff);
 		return (diff)/2; // actual value is in 0.5us, so need to divide by 2 to get 1us units
 	}
 	
