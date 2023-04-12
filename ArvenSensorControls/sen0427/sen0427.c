@@ -38,14 +38,14 @@ void SEN0427_InitAll(void)
     }
     // enable pin 25 as an output
     MCP23017_SetPin(MCP23017_PinMode_OUTPUT, MCP23017_PORTA, MCP23017_BIT4_ADDR);
-    // set the pin low to disable SEN0427_R
+    // set the pin low to disable SEN0427_L
     MCP23017_Send(MCP23017_OUTPUT_LOW, MCP23017_PORTA, MCP23017_BIT4_ADDR);
-    // initialize the left sensor
-    (void) SEN0427_InitDevice(SEN0427_L);
-    // set the pin high to enable SEN0427_R
-    MCP23017_Send(MCP23017_OUTPUT_HIGH, MCP23017_PORTA, MCP23017_BIT4_ADDR);
     // initialize the right sensor
     (void) SEN0427_InitDevice(SEN0427_R);
+    // set the pin high to enable SEN0427_L
+    MCP23017_Send(MCP23017_OUTPUT_HIGH, MCP23017_PORTA, MCP23017_BIT4_ADDR);
+    // initialize the left sensor
+    (void) SEN0427_InitDevice(SEN0427_L);
 }
 
 // Initializes the specified device on I2C with proper address and settings
