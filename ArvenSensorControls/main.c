@@ -51,23 +51,17 @@ int main(void)
 	// enable sleep mode, for idle, sort of similar to WAI on 9S12X (13.2)
 	sleep_enable();
 	// bring up the I2C bus, at 400kHz operation
-	//I2C_Init(F_CPU, I2CBus400);
-	//// Cannot be used while pico is initialized
-	////SCI0_Init(F_CPU, 9600, 1); // 16Mhz clock, 9600 baud
-	//// welcome message, so we know it booted OK
-	////SCI0_TxString("\n328 Up! Characters will echo.\n");
+	I2C_Init(F_CPU, I2CBus400);
 	GD03_Init();
-	//SEN0427_InitDevice(SEN0427_L);
+	//SEN0427_InitDevice(SEN0427_R);
+	//SEN0427_InitAll();
 	//MCP23017_Init(MCP23017_PORTB);	
-	//
-	////MCP23017_SetPin(MCP23017_PinMode_INPUT, MCP23017_PORTB, MCP23017_BIT0_ADDR);
-	//// requires ISR for PCI2
-	//
+	
+	// requires ISR for PCI2
 	Back_Sens_InitAll();
-	//// requires ISR for PCI2 & PCI0
+	// requires ISR for PCI2 & PCI0
 	HCSR04_InitAll();
-	//
-	//// not compatible with SCI initialization
+	// not compatible with SCI initialization
 	Pico_InitCommunication();
 	
 	// set the global interrupt flag (enable interrupts)
@@ -97,10 +91,11 @@ int main(void)
 		if(_Ticks > timerEventCount){
 			_Ticks = 0;
 			PORTC ^= LED;
-			//frame.Weight = GD03_CaptureAtoDVal();
+			frame.Weight = GD03_CaptureAtoDVal();
 			//PORTC &= ~LED;		
-			frame.Ultrasonic_L_Duration = HCSR04_GetEchoDuration(HCSR04_L);
-			//frame.Bump_L = bump_L;
+			//frame.Ultrasonic_L_Duration = HCSR04_GetEchoDuration(HCSR04_L);
+			frame.Bump_L = bump_L;
+			frame.Bump_R = bump_R;
 			//frame.Ultrasonic_C_Duration = HCSR04_GetEchoDuration(HCSR04_C);
 			//
 			//frame.Ultrasonic_R_Duration = HCSR04_GetEchoDuration(HCSR04_R);
@@ -144,5 +139,5 @@ ISR (PCINT2_vect)
 // ISR for PCI0, covering PCINT0 through PCINT8
 ISR (PCINT0_vect)
 {
-	HCSR04_ISR();	
+	HCSR04_ISR();
 }
