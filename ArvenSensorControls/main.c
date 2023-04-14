@@ -53,7 +53,7 @@ int main(void)
 	// bring up the I2C bus, at 400kHz operation
 	I2C_Init(F_CPU, I2CBus400);
 	GD03_Init();
-	//SEN0427_InitDevice(SEN0427_R);
+	SEN0427_InitDevice(SEN0427_R);
 	//SEN0427_InitAll();
 	//MCP23017_Init(MCP23017_PORTB);	
 	
@@ -88,21 +88,25 @@ int main(void)
 
 		//PORTC ^= LED;
 		// go idle!
+		//PORTD |= 0b00010000;
+		//DDRB |= HCSR04_R_Trig;
+		//PORTB |= HCSR04_R_Trig;
+		//PORTD &= ~HCSR04_R;
 		if(_Ticks > timerEventCount){
 			_Ticks = 0;
 			PORTC ^= LED;
 			frame.Weight = GD03_CaptureAtoDVal();
 			//PORTC &= ~LED;		
-			//frame.Ultrasonic_L_Duration = HCSR04_GetEchoDuration(HCSR04_L);
+			 frame.Ultrasonic_L_Duration = HCSR04_GetEchoDuration(HCSR04_L);
 			frame.Bump_L = bump_L;
 			frame.Bump_R = bump_R;
-			//frame.Ultrasonic_C_Duration = HCSR04_GetEchoDuration(HCSR04_C);
+			frame.Ultrasonic_C_Duration = HCSR04_GetEchoDuration(HCSR04_C);
 			//
-			//frame.Ultrasonic_R_Duration = HCSR04_GetEchoDuration(HCSR04_R);
+			frame.Ultrasonic_R_Duration = HCSR04_GetEchoDuration(HCSR04_R);
 			//
 			//frame.IR_L_Distance = SEN0427_CaptureDistance(SEN0427_L);
 			//
-			//frame.IR_R_Distance = SEN0427_CaptureDistance(SEN0427_R);
+			frame.IR_R_Distance = SEN0427_CaptureDistance(SEN0427_R);
 			//PORTC &= ~LED;
 			//TODO: Set up code to retrieve battery level from GPIO
 
