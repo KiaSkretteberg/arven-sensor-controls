@@ -155,15 +155,31 @@ int trigger(HCSR04_Device device)
 			default:
 				break;
 		}
-	
-		// set pin low for 2 us to ensure we're starting with a fresh pulse
-		PORTD &= ~pin;
-		_delay_us(2);
-		
-		// set the pin high for a minimum of 10us to ensure the 8 pulses are sent, according to the datasheet (see header file)
-		PORTD |= pin;
-		_delay_us(10); 
-		PORTD &= ~pin;
+		switch(activeDevice)
+		{
+			case HCSR04_L:
+			case HCSR04_C:
+				// set pin low for 2 us to ensure we're starting with a fresh pulse
+				PORTD &= ~pin;
+				_delay_us(2);		
+				// set the pin high for a minimum of 10us to ensure the 8 pulses are sent, according to the datasheet (see header file)
+				PORTD |= pin;
+				_delay_us(10); 
+				PORTD &= ~pin;
+				break;
+			case HCSR04_R:
+				// set pin low for 2 us to ensure we're starting with a fresh pulse
+				PORTB &= ~pin;
+				_delay_us(2);				
+				// set the pin high for a minimum of 10us to ensure the 8 pulses are sent, according to the datasheet (see header file)
+				PORTB |= pin;
+				_delay_us(10);
+				PORTB &= ~pin;
+				break;
+			default:
+				break;			
+		}
+
 		
 		// successful trigger
 		return 1;

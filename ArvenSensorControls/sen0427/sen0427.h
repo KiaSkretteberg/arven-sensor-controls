@@ -11,6 +11,7 @@
 #define SEN0427_Addr	0x29 // default, will need to change in initialize
 #define SEN0427_L_Addr	0x30
 #define SEN0427_R_Addr	0x31
+#define SEN0427_L_EN 0b00010000
 
 #define VL6180X_SYSTEM_MODE_GPIO0                     0X010
 #define VL6180X_SYSTEM_MODE_GPIO1                     0X011

@@ -32,18 +32,12 @@ void reAddressDevice(SEN0427_Device device);
 // Initializes all SEN0427 Devices
 void SEN0427_InitAll(void)
 {
-    if(!MSCP23017_Initialized(MCP23017_PORTA))
-    {
-        MCP23017_Init(MCP23017_PORTA);
-    }
-    // enable pin 25 as an output
-    MCP23017_SetPin(MCP23017_PinMode_OUTPUT, MCP23017_PORTA, MCP23017_BIT4_ADDR);
-    // set the pin low to disable SEN0427_L
-    MCP23017_Send(MCP23017_OUTPUT_LOW, MCP23017_PORTA, MCP23017_BIT4_ADDR);
-    // initialize the right sensor
+    //Set pin to low
+	PORTD &= ~SEN0427_L_EN;
+	// initialize the right sensor	
     (void) SEN0427_InitDevice(SEN0427_R);
     // set the pin high to enable SEN0427_L
-    MCP23017_Send(MCP23017_OUTPUT_HIGH, MCP23017_PORTA, MCP23017_BIT4_ADDR);
+	PORTD |= SEN0427_L_EN;
     // initialize the left sensor
     (void) SEN0427_InitDevice(SEN0427_L);
 }
